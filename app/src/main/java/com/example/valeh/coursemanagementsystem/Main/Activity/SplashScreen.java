@@ -51,23 +51,18 @@ public class SplashScreen extends AppCompatActivity {
     String pin;
     String fingEnable;
     String logout;
-    SharedPreferences spreferences2;
     Call<LoginResponseData> callForRole;
     LottieAnimationView animationView;
     @Inject
     SharedManagement sharedManagement;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-        MyApp.app().basicComponent().in_SplashScreen(this);
-        sharedManagement.save("DaggerWorkTest",1,"int");
-        sharedManagement.getIntSaved("DaggerWorkTest");
-
-        SharedPreferences spreferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Boolean aBoolean = spreferences1.getBoolean("SCREEN_PROTECT", false);
+        MyApp.app().basicComponent().SplashScreen_inject(this);
+//        sharedManagement.save("DaggerWorkTest","2","string");
+//        Log.d("TEST",sharedManagement.getStringSaved("DaggerWorkTest"));
+        Boolean aBoolean = sharedManagement.getBooleanSaved("SCREEN_PROTECT");
         if(aBoolean){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                     WindowManager.LayoutParams.FLAG_SECURE);
@@ -76,28 +71,17 @@ public class SplashScreen extends AppCompatActivity {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        SharedPreferences fingenable = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        fingEnable = fingenable.getString("FINGERENABLED", "");
-        spreferences2 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        lastToken = spreferences2.getString("TOKEN", "");
-        logout = spreferences2.getString("LOGOUT","");
+        fingEnable = sharedManagement.getStringSaved("FINGERENABLED");
+        lastToken = sharedManagement.getStringSaved("TOKEN");
+        logout = sharedManagement.getStringSaved("LOGOUT");
         ServerConnectionTest srv = new ServerConnectionTest();
         animationView = findViewById(R.id.gradient_back);
         animationView.setSpeed(0.3f);
         im1 = (ImageView) findViewById(R.id.course_splash_txt);
-     //   im2 = (ImageView) findViewById(R.id.course_splash_txt2);
-
-        //   im2 = (ImageView) findViewById(R.id.course_splash_txt2);
         getWindow().getAttributes().windowAnimations = R.style.fade_out;
         Animation fadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-        Animation fadeout = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         im1.startAnimation(fadein);
-
-
-
-        SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        pin = spreferences.getString("PIN", "");
-
+        pin = sharedManagement.getStringSaved("PIN");
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)
@@ -115,12 +99,8 @@ public class SplashScreen extends AppCompatActivity {
             callForRole.enqueue(new Callback<LoginResponseData>() {
                 @Override
                 public void onResponse(Call<LoginResponseData> call, Response<LoginResponseData> response) {
-
                     if (response.isSuccessful()){
                         Log.d("Message", response.body().getMessage());
-
-
-
                     if (!response.body().equals("false")) {
                         myRole = response.body().getMessage();
                         Log.d("myRole", myRole);
@@ -129,12 +109,12 @@ public class SplashScreen extends AppCompatActivity {
                                 startActivity(new Intent(SplashScreen.this, FingerprintAdd_Splash.class));
                                 finish();
                             } else {
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("PINLOGIN", "4").apply();
+                                sharedManagement.save("PINLOGIN",4,"int");
                                 startActivity(new Intent(SplashScreen.this, PinLogin.class));
                                 finish();
                             }
                         } else {
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("myRole", myRole).apply();
+                            sharedManagement.save("myRole",myRole,"string");
                             startActivity(new Intent(SplashScreen.this, MainMenu.class));
                             finish();
                         }
@@ -154,7 +134,7 @@ public class SplashScreen extends AppCompatActivity {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                                 SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                                 spreferences.edit().clear().commit();
-                                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LOGOUT", "1").apply();
+                                                sharedManagement.save("LOGOUT","1","string");
                                                 finishAffinity();
                                             }
                                         }
@@ -163,8 +143,7 @@ public class SplashScreen extends AppCompatActivity {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             startActivity(new Intent(SplashScreen.this, LoginRegister.class));
-                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LOGOUT", "0").apply();
-
+                                            sharedManagement.save("LOGOUT","0","string");
                                             finish();
                                         }
                                     })
@@ -173,16 +152,14 @@ public class SplashScreen extends AppCompatActivity {
                     }
                 }
                 else {
-
                         startActivity(new Intent(SplashScreen.this, LoginRegister.class));
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LOGOUT", "0").apply();
+                        sharedManagement.save("LOGOUT","0","string");
                         finish();
                     }
                 }
                 @Override
                 public void onFailure(Call<LoginResponseData> call, Throwable t) {
                     if(t instanceof SocketTimeoutException){
-                        // Toasty.info(SplashScreen.this,"Server is unreachable!", Toast.LENGTH_SHORT).show();
                         new AlertDialog.Builder(SplashScreen.this)
                                 .setMessage("Service temporarily unavailable.")
                                 .setCancelable(false)
@@ -193,7 +170,7 @@ public class SplashScreen extends AppCompatActivity {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                             SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                             spreferences.edit().clear().commit();
-                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("LOGOUT", "1").apply();
+                                            sharedManagement.save("LOGOUT","1","string");
                                             finishAffinity();
                                         }
                                     }
@@ -248,7 +225,6 @@ public class SplashScreen extends AppCompatActivity {
                     .show();
         }
     }
-
     private void chooseCategory() {
         AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
         builder.setTitle("Choose your category");
@@ -256,46 +232,37 @@ public class SplashScreen extends AppCompatActivity {
                         {"Admin", "Teacher", "Student"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // The 'which' argument contains the index position
-                        // of the selected item
                         switch (which) {
                             case 0:
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKEN", "hello").apply();
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("myRole", "3").apply();
+                                sharedManagement.save("TOKEN","hello","string");
+                                sharedManagement.save("myRole","3","string");
                                 loginTest();
                                 break;
                             case 1:
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKEN", "hello").apply();
-
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("myRole", "2").apply();
+                                sharedManagement.save("TOKEN","hello","string");
+                                sharedManagement.save("myRole","2","string");
                                 loginTest();
                                 break;
                             case 2:
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKEN", "hello").apply();
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("myRole", "1").apply();
+                                sharedManagement.save("TOKEN","hello","string");
+                                sharedManagement.save("myRole","1","string");
                                 loginTest();
                                 break;
-
                         }
                     }
                 });
         builder.show();
-
     }
-
-
     private void loginTest() {
-
         if(!pin.equals("")) {
             if(fingEnable.equals("1"))
             {
-
                 startActivity(new Intent(SplashScreen.this, FingerprintAdd_Splash.class));
                 finish();
             }
             else {
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKEN", "hello").apply();
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("PINLOGIN", "4").apply();
+                sharedManagement.save("TOKEN","hello","string");
+                sharedManagement.save("PINLOGIN","4","string");
                 startActivity(new Intent(SplashScreen.this, PinLogin.class));
                 finish();
             }
@@ -303,7 +270,6 @@ public class SplashScreen extends AppCompatActivity {
         else{
             startActivity(new Intent(SplashScreen.this, MainMenu.class));
             finish();
-            //      startActivity(new Intent(SplashScreen.this, MainMenu.class));
         }
     }
 }

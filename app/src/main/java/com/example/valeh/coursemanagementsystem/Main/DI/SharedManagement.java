@@ -2,18 +2,20 @@ package com.example.valeh.coursemanagementsystem.Main.DI;
 
 import android.content.SharedPreferences;
 
+import javax.inject.Inject;
+
 public class SharedManagement {
 
     private SharedPreferences sharedPreferences;
-    private String type;
 
 
-    public SharedManagement(SharedPreferences sharedPreferences, String type) {
+    public SharedManagement(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
-        this.type = type;
     }
 
     public void save(String key, Object o, String type){
+
+        type = type.toLowerCase();
 
         if(type.equals("string")) {
             sharedPreferences.edit()

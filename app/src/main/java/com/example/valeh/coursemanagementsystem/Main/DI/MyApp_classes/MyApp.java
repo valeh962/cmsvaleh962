@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.valeh.coursemanagementsystem.Main.DI.AppModule;
 import com.example.valeh.coursemanagementsystem.Main.DI.BasicComponent;
+import com.example.valeh.coursemanagementsystem.Main.DI.DaggerBasicComponent;
 
 public class MyApp extends Application{
 
@@ -16,6 +17,7 @@ public class MyApp extends Application{
         super.onCreate();
         app = this;
         appModule = new AppModule(this);
+
         basicComponent = DaggerBasicComponent.builder()
                 .appModule(new AppModule(getApplicationContext()))
                 .build();

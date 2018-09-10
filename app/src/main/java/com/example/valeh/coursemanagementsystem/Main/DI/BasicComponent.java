@@ -10,5 +10,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface BasicComponent {
-    void in_SplashScreen(SplashScreen splashScreen);
+    void SplashScreen_inject(SplashScreen splashScreen);
 }
