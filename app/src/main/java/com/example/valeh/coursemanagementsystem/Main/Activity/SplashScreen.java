@@ -60,7 +60,6 @@ public class SplashScreen extends AppCompatActivity {
     String pin;
     String fingEnable;
     String logout;
-    Call<LoginResponseData> callForRole;
     LottieAnimationView animationView;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Inject
@@ -70,8 +69,6 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         MyApp.app().basicComponent().SplashScreen_inject(this);
-//        sharedManagement.save("DaggerWorkTest","2","string");
-//        Log.d("TEST",sharedManagement.getStringSaved("DaggerWorkTest"));
         Boolean aBoolean = sharedManagement.getBooleanSaved("SCREEN_PROTECT");
         if(aBoolean){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
@@ -93,28 +90,9 @@ public class SplashScreen extends AppCompatActivity {
         im1.startAnimation(fadein);
         pin = sharedManagement.getStringSaved("PIN");
 
-
-//
-//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .connectTimeout(5, TimeUnit.SECONDS)
-//                .readTimeout(5, TimeUnit.SECONDS)
-//                .writeTimeout(5, TimeUnit.SECONDS)
-//                .build();
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .addConverterFactory(ScalarsConverterFactory.create())
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(okHttpClient)
-//                .baseUrl(ITokenUserTypeData.BASE_URL)
-//                .build();
-
-
         ITokenUserTypeDataRX iTokenUserTypeData =
                 RetrofitBuilder.buildRetrofitrx(ITokenUserTypeDataRX.BASE_URL)
                         .create(ITokenUserTypeDataRX.class);
-    //    callForRole = iTokenUserTypeData.getType(lastToken);
-
-
         if(NetworkStatus.getInstance(this).isOnline()) {
             if(lastToken.isEmpty() || lastToken.length()==0){
                         startActivity(new Intent(SplashScreen.this, LoginRegister.class));
@@ -161,7 +139,6 @@ public class SplashScreen extends AppCompatActivity {
                     .show();
         }
     }
-
     private void handleError(Throwable throwable) {
         new AlertDialog.Builder(SplashScreen.this)
                                 .setMessage("Service temporarily unavailable.")
@@ -193,7 +170,6 @@ public class SplashScreen extends AppCompatActivity {
                                 })
                                 .show();
     }
-
     private void handleResponse(LoginResponseData loginResponseData) {
 
         if (loginResponseData.getMessage() != null) {
@@ -249,7 +225,6 @@ public class SplashScreen extends AppCompatActivity {
         }
 
     }
-
     private void chooseCategory() {
         AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
         builder.setTitle("Choose your category");

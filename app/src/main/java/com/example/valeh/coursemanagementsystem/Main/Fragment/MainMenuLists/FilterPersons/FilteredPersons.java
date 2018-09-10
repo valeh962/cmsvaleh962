@@ -26,9 +26,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.Teacher_details;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.teacher_main_list_adapter;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.BaseFragment;
+import com.example.valeh.coursemanagementsystem.Main.Helpers.RetrofitBuilder;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MakeRequest.Roles;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MakeRequest.Roles_Interface;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Subject.Subject_1;
@@ -43,6 +46,8 @@ import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -72,16 +77,12 @@ public class FilteredPersons extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    int panel_height,panel_height_old;
     public String tokken;
-    int P_TYPE_N;
-    int P_STAT_N;
     private ProgressBar spinner;
     private RecyclerView recyclerView;
     private teacher_main_list_adapter mAdapter,mAdapter1;
-    private ArrayList<TeachersAllModel> listItems;
     Spinner lesson_type,person_type;
-    ArrayAdapter<String> adapter,adapter1;
+    ArrayAdapter<String> adapter1;
     ArrayList<String> results,results1;
     TextView setFilter;
     int listSize=0,listSize1 = 0;
@@ -89,11 +90,10 @@ public class FilteredPersons extends BaseFragment {
     TextView showall;
     private OnFragmentInteractionListener mListener;
     RecyclerView recyclerView1;
+    @Inject
+    SharedManagement sharedManagement;
     private LinearLayout panel1;
-    SwipeRefreshLayout mSwipeRefreshLayout11,mSwipeRefreshLayout12;
-
     public FilteredPersons() {
-        // Required empty public constructor
     }
 
     /**
@@ -126,7 +126,6 @@ public class FilteredPersons extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_filtered_persons,container,false);
         return rootView;
     }
@@ -141,7 +140,10 @@ public class FilteredPersons extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tokken =  PreferenceManager.getDefaultSharedPreferences(getContext()).getString("TOKEN", "nothing");
+
+        MyApp.app().basicComponent().FilteredPersons_inject(this);
+        tokken = sharedManagement.getStringSaved("TOKEN");
+
         recyclerView = view.findViewById(R.id.rec11);
         recyclerView1 = view.findViewById(R.id.rec12);
         showall = view.findViewById(R.id.showall);
@@ -153,21 +155,15 @@ public class FilteredPersons extends BaseFragment {
 
 
         panel1 = view.findViewById(R.id.panel1);
-        panel1.requestLayout();
-        panel_height=panel1.getLayoutParams().height;
-        panel_height_old = panel1.getLayoutParams().height;
 
-        results = new ArrayList<String>();
-        results1 = new ArrayList<String>();
-        //fillRecyclerView(person_type.getSelectedItemPosition() + 1,lesson_type.getSelectedItemPosition()+1,view);
-      //  fillRecyclerViewAll(view);
+        results = new ArrayList<>();
+        results1 = new ArrayList<>();
         fillSpinner1(view);
         fillSpinner2(view);
         spinner.bringToFront();
         spinner.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
-        fillRecyclerViewAll(view);
-
+        fillRecyclerViewAll();
         showall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +171,7 @@ public class FilteredPersons extends BaseFragment {
                 recyclerView.setVisibility(View.GONE);
                 recyclerView1.setVisibility(View.VISIBLE);
                 list.clear();
-                fillRecyclerViewAll(view);
+                fillRecyclerViewAll();
             }
         });
         setFilter.setOnClickListener(new View.OnClickListener() {
@@ -186,96 +182,15 @@ public class FilteredPersons extends BaseFragment {
                 recyclerView1.setVisibility(View.GONE);
                 list.clear();
                 fillRecyclerView(person_type.getSelectedItemPosition() + 1,lesson_type.getSelectedItemPosition()+1,view);
-
             }
         });
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy>0){
-                    panel1.requestLayout();
-                    if(panel1.getHeight()>=0){
-                        panel_height--;
-                        panel1.getLayoutParams().height=panel_height;
-                    }
-                }
-                else{
-                    if(panel1.getHeight()<=panel_height_old){
-                        panel_height++;
-                        panel1.getLayoutParams().height=panel_height;
-                    }
-                }
-            }
-        });
-        recyclerView1.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-            }
-        });
-
-
-
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                if (dy > 5) {
-//                    sv.smoothScrollTo(0, recyclerView.getTop());
-//                } else {
-//
-//                    sv.smoothScrollTo(0, sv.getBottom());
-//                }
-//            }
-//        });
-//        recyclerView1.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                if (dy > 5) {
-//                    sv.smoothScrollTo(0, recyclerView1.getTop());
-//                } else {
-//
-//                    sv.smoothScrollTo(0, sv.getBottom());
-//                }
-//            }
-//        });
     }
 
 
 
-    private void fillRecyclerViewAll(View view) {
+    private void fillRecyclerViewAll() {
         list.clear();
-        Retrofit retrofit = new Retrofit
-                .Builder()
-                .baseUrl(TeachersAll_Interface.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        TeachersAll_Interface api = retrofit.create(TeachersAll_Interface.class);
+        TeachersAll_Interface api = RetrofitBuilder.buildRetrofitrx(TeachersAll_Interface.BASE_URL).create(TeachersAll_Interface.class);
         Call<ArrayList<TeachersAllModel>> call = api.getNoFilterTeachers(tokken);
         call.enqueue(new Callback<ArrayList<TeachersAllModel>>() {
             @Override
@@ -291,8 +206,6 @@ public class FilteredPersons extends BaseFragment {
                         mAdapter1.setOnItemClickListener(new teacher_main_list_adapter.OnItemClickListener() {
                             @Override
                             public void OnItemClick(int position) {
-
-                                Toast.makeText(getActivity(), list.get(position).getName() + " " + list.get(position).getSurname(), Toast.LENGTH_SHORT).show();
 
                                 Fragment fr = new Teacher_details();
                                 Bundle bundle = new Bundle();
@@ -331,12 +244,7 @@ public class FilteredPersons extends BaseFragment {
 
     private void fillRecyclerView(int i,int j,View view) {
         list.clear();
-        Retrofit retrofit = new Retrofit
-                .Builder()
-                .baseUrl(TeachersAll_Interface.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        TeachersAll_Interface api = retrofit.create(TeachersAll_Interface.class);
+        TeachersAll_Interface api = RetrofitBuilder.buildRetrofitrx(TeachersAll_Interface.BASE_URL).create(TeachersAll_Interface.class);
         Call<ArrayList<TeachersAllModel>> call = api.getAllTeachers(tokken,i,j);
         call.enqueue(new Callback<ArrayList<TeachersAllModel>>() {
             @Override
@@ -387,17 +295,7 @@ public class FilteredPersons extends BaseFragment {
         if (!Platform.get().isCleartextTrafficPermitted(Subject_Interface.BASE_URL)) {
             throw new RouteException(new UnknownServiceException(
                     "CLEARTEXT communication to " + Roles_Interface.BASE_URL + " not permitted by network security policy"));}
-        OkHttpClient client = new OkHttpClient
-                .Builder()
-                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT))
-                .build();
-        Retrofit retrofit = new Retrofit
-                .Builder()
-                .baseUrl(Roles_Interface.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-        Roles_Interface api = retrofit.create(Roles_Interface.class);
+        Roles_Interface api = RetrofitBuilder.buildRetrofitrx(Roles_Interface.BASE_URL).create(Roles_Interface.class);
         Call<List<Roles>> call = api.getResultsRoles();
         adapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, results1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
