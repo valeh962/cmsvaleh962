@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.valeh.coursemanagementsystem">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+    <application
+        android:name=".Main.DI.MyApp_classes.MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ico2"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ico2"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Main.Activity.SplashScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Main.Activity.LoginRegister"
+            android:label="@string/title_activity_login_register"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Main.Activity.Make_Request"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Main.Activity.MainMenu"
+            android:label="@string/title_activity_main_menu"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Main.Activity.Login_Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".Main.Activity.PinClasses.PinLogin" />
+        <activity android:name=".Main.Activity.PinClasses.PinChange" />
+        <activity android:name=".Main.Activity.FingerprintClasses.PinChange_FingAdd" />
+        <activity android:name=".Main.Activity.FingerprintClasses.FingerprintAdd" />
+        <activity android:name=".Main.Activity.FingerprintClasses.FingerprintAdd_Splash" />
+
+    </application>
+
+</manifest>

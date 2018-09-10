@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/n_back"
+    tools:context=".Main.Activity.FingerprintClasses.FingerprintAdd">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerVertical="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="365dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_transparent"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Put your finger to fingerprint"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <ViewSwitcher
+            android:id="@+id/viewswitch1"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_centerInParent="true">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view2"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+                app:lottie_autoPlay="true"
+                app:lottie_colorFilter="#fff"
+
+                app:lottie_fileName="android_fingerprint.json"
+                app:lottie_loop="false" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view3"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+                android:padding="130dp"
+                app:lottie_autoPlay="true"
+
+                app:lottie_fileName="simple_tick.json"
+                app:lottie_loop="false" />
+        </ViewSwitcher>
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Login with pin"
+        android:textColor="@android:drawable/screen_background_light_transparent"
+        android:textSize="20dp" />
+</RelativeLayout>

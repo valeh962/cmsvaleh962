@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".Main.Fragment.Login_request.login_request2"
+
+    android:windowSoftInputMode="stateAlwaysHidden">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/activated_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:drawableRight="@drawable/ic_chevron_left_black_24dp"
+
+        android:gravity="center_vertical|end"
+        android:padding="15dp"
+        android:text="Back"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+        />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:focusable="false"
+      >
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="130dp"
+
+            android:layout_height="130dp"
+            android:layout_marginTop="15dp"
+            android:padding="15dp"
+            app:srcCompat="@drawable/sent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:screenReaderFocusable="false"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Succesfully activated!"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:focusable="false"/>
+
+        <TextView
+            android:id="@+id/activated_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_bg"
+
+            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+            android:gravity="center_vertical|end"
+            android:padding="15dp"
+            android:text="Next"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+</FrameLayout>

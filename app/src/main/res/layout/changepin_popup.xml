@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="210dp"
+    android:background="@drawable/n_back"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="210dp"
+        android:background="@drawable/transparent_bg_layout"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter current pin"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editText8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="New pin"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editText9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:cursorVisible="false"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Re-write new pin"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/changePin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_bg"
+            android:cursorVisible="false"
+            android:text="Change"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+</LinearLayout>

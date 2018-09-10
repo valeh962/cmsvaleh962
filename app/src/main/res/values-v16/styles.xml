@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="RobotoButtonStyle" parent="android:Widget.Button">
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+</resources>
