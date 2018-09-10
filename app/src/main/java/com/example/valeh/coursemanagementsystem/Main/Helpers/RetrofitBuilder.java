@@ -1,13 +1,18 @@
 package com.example.valeh.coursemanagementsystem.Main.Helpers;
 
+import android.content.Context;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitBuilder {
+
+    private static Retrofit retrofitt = null;
 
     public Retrofit buildRetrofit(String BASE_URL){
 
@@ -25,5 +30,25 @@ public class RetrofitBuilder {
 
                  return retrofit;
     }
+
+
+    public static Retrofit buildRetrofitrx(String Base_URL) {
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5, TimeUnit.SECONDS)
+                .build();
+            if (retrofitt == null) {
+                retrofitt = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .baseUrl(Base_URL)
+                        .client(okHttpClient)
+                        .build();
+            }
+            return retrofitt;
+        }
+
 
 }

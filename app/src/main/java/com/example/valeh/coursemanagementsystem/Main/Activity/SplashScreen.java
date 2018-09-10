@@ -1,6 +1,13 @@
 package com.example.valeh.coursemanagementsystem.Main.Activity;
 
 import es.dmoral.toasty.Toasty;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,8 +39,10 @@ import com.example.valeh.coursemanagementsystem.Main.Activity.PinClasses.PinLogi
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.NetworkStatus;
+import com.example.valeh.coursemanagementsystem.Main.Helpers.RetrofitBuilder;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.ServerConnectionTest;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.GetTokenForUserType.ITokenUserTypeData;
+import com.example.valeh.coursemanagementsystem.Main.JsonWorks.GetTokenForUserType.ITokenUserTypeDataRX;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Login.LoginResponseData;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.OTPRequest.IOTPData;
 import com.example.valeh.coursemanagementsystem.R;
@@ -53,6 +62,7 @@ public class SplashScreen extends AppCompatActivity {
     String logout;
     Call<LoginResponseData> callForRole;
     LottieAnimationView animationView;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Inject
     SharedManagement sharedManagement;
     @Override
@@ -82,116 +92,42 @@ public class SplashScreen extends AppCompatActivity {
         Animation fadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         im1.startAnimation(fadein);
         pin = sharedManagement.getStringSaved("PIN");
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5, TimeUnit.SECONDS)
-                .build();
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .baseUrl(ITokenUserTypeData.BASE_URL)
-                .build();
-        ITokenUserTypeData iTokenUserTypeData =  retrofit.create(ITokenUserTypeData.class);
-        callForRole = iTokenUserTypeData.getType(lastToken);
-        if(NetworkStatus.getInstance(this).isOnline()) {
-            callForRole.enqueue(new Callback<LoginResponseData>() {
-                @Override
-                public void onResponse(Call<LoginResponseData> call, Response<LoginResponseData> response) {
-                    if (response.isSuccessful()){
-                        Log.d("Message", response.body().getMessage());
-                    if (!response.body().equals("false")) {
-                        myRole = response.body().getMessage();
-                        Log.d("myRole", myRole);
-                        if (!pin.equals("")) {
-                            if (fingEnable.equals("1")) {
-                                startActivity(new Intent(SplashScreen.this, FingerprintAdd_Splash.class));
-                                finish();
-                            } else {
-                                sharedManagement.save("PINLOGIN",4,"int");
-                                startActivity(new Intent(SplashScreen.this, PinLogin.class));
-                                finish();
-                            }
-                        } else {
-                            sharedManagement.save("myRole",myRole,"string");
-                            startActivity(new Intent(SplashScreen.this, MainMenu.class));
-                            finish();
-                        }
-                    } else {
-                        if (logout.equals("1")) {
-                            startActivity(new Intent(SplashScreen.this, LoginRegister.class));
-                            finish();
-                        }
-                        if (logout.equals("")) {
-                            new AlertDialog.Builder(SplashScreen.this)
-                                    .setMessage("Your session has expired, please login again to continue.")
-                                    .setCancelable(false)
-                                    .setPositiveButton("Logout and exit", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                                SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                                spreferences.edit().clear().commit();
-                                                sharedManagement.save("LOGOUT","1","string");
-                                                finishAffinity();
-                                            }
-                                        }
-                                    })
-                                    .setNeutralButton("Login", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            startActivity(new Intent(SplashScreen.this, LoginRegister.class));
-                                            sharedManagement.save("LOGOUT","0","string");
-                                            finish();
-                                        }
-                                    })
-                                    .show();
-                        }
-                    }
-                }
-                else {
+
+//
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .connectTimeout(5, TimeUnit.SECONDS)
+//                .readTimeout(5, TimeUnit.SECONDS)
+//                .writeTimeout(5, TimeUnit.SECONDS)
+//                .build();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .addConverterFactory(ScalarsConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .client(okHttpClient)
+//                .baseUrl(ITokenUserTypeData.BASE_URL)
+//                .build();
+
+
+        ITokenUserTypeDataRX iTokenUserTypeData =
+                RetrofitBuilder.buildRetrofitrx(ITokenUserTypeDataRX.BASE_URL)
+                        .create(ITokenUserTypeDataRX.class);
+    //    callForRole = iTokenUserTypeData.getType(lastToken);
+
+
+        if(NetworkStatus.getInstance(this).isOnline()) {
+            if(lastToken.isEmpty() || lastToken.length()==0){
                         startActivity(new Intent(SplashScreen.this, LoginRegister.class));
                         sharedManagement.save("LOGOUT","0","string");
                         finish();
-                    }
-                }
-                @Override
-                public void onFailure(Call<LoginResponseData> call, Throwable t) {
-                    if(t instanceof SocketTimeoutException){
-                        new AlertDialog.Builder(SplashScreen.this)
-                                .setMessage("Service temporarily unavailable.")
-                                .setCancelable(false)
-                                .setPositiveButton("Logout and exit", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                            SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                            spreferences.edit().clear().commit();
-                                            sharedManagement.save("LOGOUT","1","string");
-                                            finishAffinity();
-                                        }
-                                    }
-                                })
-                                .setNegativeButton("Login", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        startActivity(new Intent(SplashScreen.this, LoginRegister.class));
-                                        finish();
-                                    }
-                                })
-                                .setNeutralButton("Demo mode", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        chooseCategory();
-                                    }
-                                })
-                                .show();
-                    }
-                }
-            });
+            }
+           else {
+                compositeDisposable.add(iTokenUserTypeData.getType(lastToken)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::handleResponse,this::handleError)
+                );
+            }
            }
         else{
             new AlertDialog.Builder(SplashScreen.this)
@@ -225,6 +161,95 @@ public class SplashScreen extends AppCompatActivity {
                     .show();
         }
     }
+
+    private void handleError(Throwable throwable) {
+        new AlertDialog.Builder(SplashScreen.this)
+                                .setMessage("Service temporarily unavailable.")
+                                .setCancelable(false)
+                                .setPositiveButton("Logout and exit", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                            SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                            spreferences.edit().clear().commit();
+                                            sharedManagement.save("LOGOUT","1","string");
+                                            finishAffinity();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("Login", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(new Intent(SplashScreen.this, LoginRegister.class));
+                                        finish();
+                                    }
+                                })
+                                .setNeutralButton("Demo mode", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        chooseCategory();
+                                    }
+                                })
+                                .show();
+    }
+
+    private void handleResponse(LoginResponseData loginResponseData) {
+
+        if (loginResponseData.getMessage() != null) {
+            if (!loginResponseData.getMessage().equals("false")) {
+                myRole = loginResponseData.getMessage();
+                Log.d("myRole", myRole);
+                if (!pin.equals("")) {
+                    if (fingEnable.equals("1")) {
+                        startActivity(new Intent(SplashScreen.this, FingerprintAdd_Splash.class));
+                        finish();
+                    } else {
+                        sharedManagement.save("PINLOGIN", 4, "int");
+                        startActivity(new Intent(SplashScreen.this, PinLogin.class));
+                        finish();
+                    }
+                } else {
+                    sharedManagement.save("myRole", myRole, "string");
+                    startActivity(new Intent(SplashScreen.this, MainMenu.class));
+                    finish();
+                }
+            } else {
+                if (logout.equals("1")) {
+                    startActivity(new Intent(SplashScreen.this, LoginRegister.class));
+                    finish();
+                }
+                if (logout.equals("")) {
+                    new AlertDialog.Builder(SplashScreen.this)
+                            .setMessage("Your session has expired, please login again to continue.")
+                            .setCancelable(false)
+                            .setPositiveButton("Logout and exit", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                        SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                        spreferences.edit().clear().commit();
+                                        sharedManagement.save("LOGOUT", "1", "string");
+                                        finishAffinity();
+                                    }
+                                }
+                            })
+                            .setNeutralButton("Login", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(SplashScreen.this, LoginRegister.class));
+                                    sharedManagement.save("LOGOUT", "0", "string");
+                                    finish();
+                                }
+                            })
+                            .show();
+                }
+            }
+        }
+
+    }
+
     private void chooseCategory() {
         AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
         builder.setTitle("Choose your category");
