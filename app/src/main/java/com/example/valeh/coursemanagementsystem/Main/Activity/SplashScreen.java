@@ -63,6 +63,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         MyApp.app().basicComponent().in_SplashScreen(this);
+        sharedManagement.save("DaggerWorkTest",1,"int");
+        sharedManagement.getIntSaved("DaggerWorkTest");
 
         SharedPreferences spreferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Boolean aBoolean = spreferences1.getBoolean("SCREEN_PROTECT", false);
