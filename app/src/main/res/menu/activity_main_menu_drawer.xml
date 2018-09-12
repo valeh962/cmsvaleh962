@@ -30,6 +30,11 @@
         android:title="@string/action_settings"
         android:icon="@drawable/settingspng"
         />
+        <item
+            android:id="@+id/groups"
+            android:title="My groups"
+            android:icon="@drawable/grouppng"
+            />
 
     </group>
 

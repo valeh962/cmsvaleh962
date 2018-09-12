@@ -26,6 +26,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.Teacher_details;
@@ -78,7 +79,7 @@ public class FilteredPersons extends BaseFragment {
     private String mParam2;
 
     public String tokken;
-    private ProgressBar spinner;
+    private LottieAnimationView spinner;
     private RecyclerView recyclerView;
     private teacher_main_list_adapter mAdapter,mAdapter1;
     Spinner lesson_type,person_type;
@@ -143,6 +144,7 @@ public class FilteredPersons extends BaseFragment {
 
         MyApp.app().basicComponent().FilteredPersons_inject(this);
         tokken = sharedManagement.getStringSaved("TOKEN");
+        Log.d("TOKEN",tokken);
 
         recyclerView = view.findViewById(R.id.rec11);
         recyclerView1 = view.findViewById(R.id.rec12);
@@ -152,7 +154,6 @@ public class FilteredPersons extends BaseFragment {
         lesson_type = view.findViewById(R.id.sppp1);
         person_type = view.findViewById(R.id.sppp2);
         setFilter = view.findViewById(R.id.setFilter);
-
 
         panel1 = view.findViewById(R.id.panel1);
 
@@ -292,10 +293,19 @@ public class FilteredPersons extends BaseFragment {
     }
 
     private void fillSpinner2(View view) {
-        if (!Platform.get().isCleartextTrafficPermitted(Subject_Interface.BASE_URL)) {
-            throw new RouteException(new UnknownServiceException(
-                    "CLEARTEXT communication to " + Roles_Interface.BASE_URL + " not permitted by network security policy"));}
-        Roles_Interface api = RetrofitBuilder.buildRetrofitrx(Roles_Interface.BASE_URL).create(Roles_Interface.class);
+
+
+        OkHttpClient client = new OkHttpClient
+                .Builder()
+                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT))
+                .build();
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl(Roles_Interface.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        Roles_Interface api = retrofit.create(Roles_Interface.class);
         Call<List<Roles>> call = api.getResultsRoles();
         adapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, results1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

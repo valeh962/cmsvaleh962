@@ -53,9 +53,9 @@ public class MyProfile extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button button;
+
     EditText ed1,ed2,ed3,ed4,ed5,ed6;
-    TextView tv1,tv2,tv3;
+    TextView tv2,tv3,tvex;
 
 
     private OnFragmentInteractionListener mListener;
@@ -94,47 +94,16 @@ public class MyProfile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        button = view.findViewById(R.id.button);
+        tvex = view.findViewById(R.id.textView41);
         ed1 = view.findViewById(R.id.editText);
         ed2 = view.findViewById(R.id.editText5);
         ed3 = view.findViewById(R.id.editText4);
         ed4 = view.findViewById(R.id.editText3);
         ed5 = view.findViewById(R.id.editText2);
         ed6 = view.findViewById(R.id.editText10);
-        tv1 = view.findViewById(R.id.textView17);
         tv2 = view.findViewById(R.id.textView13);
         tv3 = view.findViewById(R.id.textView39);
-
-        String tokken = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("TOKEN", "");
-        button.setVisibility(View.GONE);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String t = button.getText().toString();
-                switch (t){
-
-                    case "Edit":
-                        button.setText("Save");
-                        enableEditText(ed1);
-                        enableEditText(ed2);
-                        enableEditText(ed3);
-                        enableEditText(ed4);
-                        enableEditText(ed5);
-                        enableEditText(ed6);
-                        break;
-                    case "Save":
-                        button.setText("Edit");
-                        disableEditText(ed1);
-                        disableEditText(ed2);
-                        disableEditText(ed3);
-                        disableEditText(ed4);
-                        disableEditText(ed5);
-                        disableEditText(ed6);
-                        break;
-                }
-            }
-        });
+        tvex.setText("Name & surname");
 
         fillInfo();
 
@@ -142,10 +111,9 @@ public class MyProfile extends Fragment {
 
     private void fillInfo() {
 
-                tv1.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserName", "")+
-                        " "+PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserSurname", ""));
-                tv2.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserIdNumber", ""));
-                tv3.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserRoleName", ""));
+
+                tv2.setText("ID: "+PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserIdNumber", ""));
+                tv3.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserType", ""));
                 ed1.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserName", ""));
                 ed2.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserSurname", ""));
                 ed3.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserEmail", ""));

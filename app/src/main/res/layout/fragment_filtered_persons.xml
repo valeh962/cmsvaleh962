@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:drawable/screen_background_light_transparent"
     android:scrollbarFadeDuration="@android:integer/config_shortAnimTime"
-    tools:context=".Main.Fragment.MainMenuLists.FilterPersons.FilteredPersons"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    tools:context=".Main.Fragment.MainMenuLists.FilterPersons.FilteredPersons">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -78,7 +78,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <FrameLayout
@@ -86,15 +85,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ProgressBar
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/progressBar2"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loading.json"
+                app:lottie_loop="true" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rec11"

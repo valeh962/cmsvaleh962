@@ -61,12 +61,6 @@ public class teacher_main_list extends BaseFragment {
     private ProgressBar spinner;
     private RecyclerView recyclerView;
     private teacher_main_list_adapter mAdapter;
-    private ArrayList<TeachersAllModel> listItems;
-
-
-
-
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -195,13 +189,6 @@ public class teacher_main_list extends BaseFragment {
 
 
 
-
-    }
-
-
-    private void addNotiff() {
-
-        Snackbar.make(getActivity().findViewById(R.id.mainmenu_myfrg),"No requests.",Snackbar.LENGTH_LONG).show();
 
     }
 

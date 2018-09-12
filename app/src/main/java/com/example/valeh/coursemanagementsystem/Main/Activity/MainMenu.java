@@ -1,5 +1,6 @@
 package com.example.valeh.coursemanagementsystem.Main.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,10 +8,14 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.MyGroups;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.FilterPersons.FilteredPersons;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.teacher_main_list;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.PersonTypeList.Menu_lists_1;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.home_mainmenu;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.ImyProfile;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.MyProfileData;
@@ -29,7 +34,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,21 +46,28 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    Toolbar toolbar;
 
+    @Inject
+    SharedManagement sharedManagement;
 
     NavigationView navigationView;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
+        MyApp.app().basicComponent().MainMenu_inject(this);
         StatusBarUtil.setTransparent(this);
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("PIN_ENTER", "1").apply();
         SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -66,9 +80,23 @@ public class MainMenu extends AppCompatActivity
         if(!aBoolean){
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//            @Override
+//            public void onBackStackChanged() {
+//                int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
+//                if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
+//                    getSupportActionBar().setHomeButtonEnabled(true);
+//                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                } else {
+//                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//                    getSupportActionBar().setHomeButtonEnabled(false);
+//                }
+//            }
+//
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -78,7 +106,25 @@ public class MainMenu extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View navhead = navigationView.getHeaderView(0);
+        TextView tv1 = navhead.findViewById(R.id.textView26);
+        TextView tv2 = navhead.findViewById(R.id.textView29);
+        tv1.setText(sharedManagement.getStringSaved("UserName")+" "+sharedManagement.getStringSaved("UserSurname"));
+        tv2.setText(sharedManagement.getStringSaved("UserIdNumber"));
+        navhead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setActionBarTitle("My profile");
+                Fragment ft = new MyProfile();
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
+                if (currentFragment instanceof MyProfile) {drawer.closeDrawers();}
 
+                else {
+                    replaceFragmentWithAnimation(ft, "home_mainmenu");
+                    drawer.closeDrawers();
+                }
+            }
+        });
 //        navigationView.addHeaderView();
 //        TextView nav_name = navigationView.findViewById(R.id.textView26);
 //        TextView nav_type = navigationView.findViewById(R.id.textView29);
@@ -159,17 +205,11 @@ public class MainMenu extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
 
         if (id == R.id.action_settings) {
 
+            setActionBarTitle("Settings");
             Fragment frr;
             frr = new Settings();
 
@@ -216,7 +256,20 @@ public class MainMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        if(id == R.id.groups){
+            setActionBarTitle("My groups");
+            Fragment ft = new MyGroups();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
+            if (currentFragment instanceof MyGroups) {}
+
+            else {
+                replaceFragmentWithAnimation(ft, "MyGroups");
+            }
+        }
+
         if (id == R.id.home_1) {
+
+
             setActionBarTitle("Home");
             Fragment ft = new home_mainmenu();
           //  replaceFragmentWithAnimation(ft,"home_mainmenu");
@@ -243,6 +296,8 @@ public class MainMenu extends AppCompatActivity
         }
 
        if (id == R.id.nav_camera) {
+
+
             setActionBarTitle("Request List");
             Fragment frr;
             frr = new Menu_lists_1();
@@ -258,6 +313,7 @@ public class MainMenu extends AppCompatActivity
         }
         if(id == R.id.filtered)
         {
+
             setActionBarTitle("All persons");
             Fragment frr;
             frr = new FilteredPersons();
@@ -271,6 +327,8 @@ public class MainMenu extends AppCompatActivity
 
 
         if (id == R.id.nav_send) {
+
+
 
             new AlertDialog.Builder(this)
                     .setMessage("Are you sure you want to exit?")
@@ -289,6 +347,8 @@ public class MainMenu extends AppCompatActivity
 
         }
         if (id == R.id.action_settings) {
+
+
             setActionBarTitle("Settings");
             Fragment frr;
             frr = new Settings();

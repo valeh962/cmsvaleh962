@@ -183,7 +183,7 @@ public class login_request2 extends Fragment {
 
                 List<MyProfileData.RoleList> roleLists = response.body().getRoleList();
                 for(int i = 0; i< roleLists.size();i++){
-                    typeName += roleLists.get(i).getName() + ", ";
+                    typeName += roleLists.get(i).getName() + "";
                     typeId += roleLists.get(i).getId() + ", ";
 
                 }
