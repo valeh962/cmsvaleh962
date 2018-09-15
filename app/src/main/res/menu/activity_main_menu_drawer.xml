@@ -3,53 +3,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-
-        <item
-        android:id="@+id/home_1"
-        android:title="@string/action_home"
-        android:icon="@drawable/homepng"
-        />
-        <item
-        android:id="@+id/editRequests"
-        android:title="Edit Requests"
-        android:icon="@drawable/addpng"
-        />
-        <item
-        android:id="@+id/nav_camera"
-        android:title="Request list"
-        android:icon="@drawable/grouppng"
-        />
-        <item
-        android:id="@+id/filtered"
-        android:title="All persons"
-        android:icon="@drawable/grouppng"
-        />
-        <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:icon="@drawable/settingspng"
-        />
-        <item
-            android:id="@+id/groups"
-            android:title="My groups"
-            android:icon="@drawable/grouppng"
-            />
-
-    </group>
 
 
-    <group android:checkableBehavior="single">
+
+
+        <item android:title="My Options">
+            <menu>
+                <item
+                    android:id="@+id/home_1"
+                    android:title="@string/action_home"
+                    android:icon="@drawable/homepng"
+                    />
+
+                <item
+                    android:id="@+id/action_settings"
+                    android:title="@string/action_settings"
+                    android:icon="@drawable/settingspng"
+                    />
+                <item
+                    android:id="@+id/groups"
+                    android:title="My groups"
+                    android:icon="@drawable/grouppng"
+                    />
+            </menu>
+        </item>
+
+
+
+
+
+
+
+      <item android:title="Admin options">
+          <menu>
+              <item
+                  android:id="@+id/groupeditor"
+                  android:icon="@drawable/grouppng"
+                  android:title="Edit groups"/>
+
 
             <item
-            android:id="@+id/log_out"
-            android:title="@string/action_logout"
-            android:icon="@drawable/exitpng"
-            />
-            <item android:id="@+id/nav_send"
-            android:title="Exit from application"
-            android:icon="@drawable/powerpng"
-            />
+                android:id="@+id/editRequests"
+                android:title="Edit Requests"
+                android:icon="@drawable/addpng"
+                />
+            <item
+                android:id="@+id/nav_camera"
+                android:title="Request list"
+                android:icon="@drawable/grouppng"
+                />
+            <item
+                android:id="@+id/filtered"
+                android:title="Filter requests"
+                android:icon="@drawable/grouppng"
+                />
+            <item
+                android:id="@+id/membersstudent"
+                android:title="Students"
+                android:icon="@drawable/grouppng"
+                />
+            <item
+                android:id="@+id/memberteacher"
+                android:title="Teachers"
+                android:icon="@drawable/grouppng"
+                />
 
-    </group>
+          </menu>
+      </item>
+
+
+
+    <item android:title="Exit">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                    <item android:id="@+id/log_out"
+                    android:title="@string/action_logout"
+                    android:icon="@drawable/exitpng"
+                    />
+                    <item android:id="@+id/nav_send"
+                    android:title="Exit from application"
+                    android:icon="@drawable/powerpng"
+                    />
+            </group>
+        </menu>
+    </item>
 </menu>

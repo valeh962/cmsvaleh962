@@ -34,7 +34,7 @@ import javax.inject.Inject;
 public class GroupDetails_adapter extends RecyclerView.Adapter<GroupDetails_adapter.MainViewHolder> {
 
     private ArrayList<StudentList> mlist;
-    public GroupDetails_adapter.OnItemClickListener mlistener;
+    public OnItemClickListener mlistener;
     int groupId;
 
     @Inject
@@ -42,14 +42,14 @@ public class GroupDetails_adapter extends RecyclerView.Adapter<GroupDetails_adap
 
     @NonNull
     @Override
-    public GroupDetails_adapter.MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.groupdetails_custom, viewGroup, false);
-        GroupDetails_adapter.MainViewHolder mvh = new GroupDetails_adapter.MainViewHolder(v, mlistener);
+        MainViewHolder mvh = new MainViewHolder(v, mlistener);
         return mvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupDetails_adapter.MainViewHolder mainViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MainViewHolder mainViewHolder, int i) {
 
         MyApp.app().basicComponent().GroupDetails_adapter_inject(this);
 
@@ -76,7 +76,7 @@ public class GroupDetails_adapter extends RecyclerView.Adapter<GroupDetails_adap
         void OnItemClick(int position);
     }
 
-    public void setOnItemClickListener(GroupDetails_adapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mlistener = onItemClickListener;
     }
 
@@ -90,7 +90,7 @@ public class GroupDetails_adapter extends RecyclerView.Adapter<GroupDetails_adap
         public RelativeLayout relativeLayout;
 
 
-        public MainViewHolder(@NonNull View itemView, GroupDetails_adapter.OnItemClickListener onItemClickListener) {
+        public MainViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
 
             tv1 = itemView.findViewById(R.id.textView42);

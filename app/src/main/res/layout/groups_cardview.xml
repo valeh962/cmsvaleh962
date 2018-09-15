@@ -4,16 +4,17 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:clickable="true"
+    android:elevation="3dp"
     android:background="?attr/selectableItemBackgroundBorderless"
     >
 
 
     <RelativeLayout
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_width="180dp"
+        android:layout_height="130dp"
+        android:background="@drawable/layout_bg"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:background="@drawable/layout_bg">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView17"
@@ -24,17 +25,20 @@
             android:layout_marginTop="7dp"
             android:gravity="center"
             android:text="Group ID"
-            android:textSize="17dp" />
+            android:textSize="22dp" />
 
-        <View style="@style/Divider"
-            android:layout_below="@+id/textView17"
-            android:id="@+id/dividerr"/>
+        <View
+            android:id="@+id/dividerr"
+            style="@style/Divider"
+            android:layout_below="@+id/textView17" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/dividerr"
             android:gravity="center"
-            android:layout_below="@id/dividerr">
+            android:padding="5dp">
+
             <TextView
                 android:id="@+id/textView28"
 
@@ -42,7 +46,8 @@
                 android:layout_height="wrap_content"
 
                 android:paddingLeft="5dp"
-                android:text="Subject" />
+                android:text="Subject"
+                android:textSize="17dp" />
 
             <TextView
                 android:id="@+id/textView30"
@@ -50,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView28"
                 android:paddingLeft="5dp"
-                android:text="Teacher" />
+                android:text="Teacher"
+                android:textSize="17dp" />
         </RelativeLayout>
 
 

@@ -33,13 +33,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.example.valeh.coursemanagementsystem.Main.Activity.MainMenu;
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
+import com.example.valeh.coursemanagementsystem.Main.Helpers.RetrofitBuilder;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.ImyProfile;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.MyProfileData;
+import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.MyProfileDataTeacher;
 import com.example.valeh.coursemanagementsystem.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class login_request2 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -53,7 +59,8 @@ public class login_request2 extends Fragment {
     @BindView(R.id.activated_back_btn) TextView activated_back_btn;
     @BindView(R.id.activated_next_btn) TextView activated_next_btn;
 
-
+    @Inject
+    SharedManagement sharedManagement;
     private OnFragmentInteractionListener mListener;
 
     public login_request2() {
@@ -100,6 +107,7 @@ public class login_request2 extends Fragment {
         PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LOGOUT", "0").apply();
         String tokken = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("TOKEN", "");
 
+        MyApp.app().basicComponent().login_request2_inject(this);
 
         fillInfo(tokken);
 
@@ -153,53 +161,82 @@ public class login_request2 extends Fragment {
 
     private void fillInfo(String tokken) {
 
-        OkHttpClient client = new OkHttpClient
-                .Builder()
-                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT))
-                .build();
-        Retrofit retrofit = new Retrofit
-                .Builder()
-                .baseUrl(ImyProfile.BASE_URl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-        ImyProfile api = retrofit.create(ImyProfile.class);
-        Call<MyProfileData> call = api.getUserInfo(tokken);
-        call.enqueue(new Callback<MyProfileData>() {
-            @Override
-            public void onResponse(Call<MyProfileData> call, Response<MyProfileData> response) {
-                String typeName = "";
-                String typeId = "";
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserName",response.body().getName()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserSurname", response.body().getSurname()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserPhone", response.body().getPhone()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserEmail", response.body().getEmail()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserIdNumber", response.body().getIdNumber()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserType", response.body().getType()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserAddress", response.body().getAddress()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserFaculty", response.body().getFaculty()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserUniversity", response.body().getUniversity()).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserGrade", String.valueOf(response.body().getGrade())).apply();
+        if(sharedManagement.getStringSaved("myRole").equals("student")) {
+            ImyProfile api = RetrofitBuilder.buildRetrofit(ImyProfile.BASE_URl).create(ImyProfile.class);
+            Call<MyProfileData> call = api.getUserInfo(tokken);
+            call.enqueue(new Callback<MyProfileData>() {
+                @Override
+                public void onResponse(Call<MyProfileData> call, Response<MyProfileData> response) {
+                    String typeName = "";
+                    String typeId = "";
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserName", response.body().getName()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserSurname", response.body().getSurname()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserPhone", response.body().getPhone()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserEmail", response.body().getEmail()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserIdNumber", response.body().getIdNumber()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserType", response.body().getType()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserAddress", response.body().getAddress()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserFaculty", response.body().getFaculty()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserUniversity", response.body().getUniversity()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserGrade", String.valueOf(response.body().getGrade())).apply();
 
-                List<MyProfileData.RoleList> roleLists = response.body().getRoleList();
-                for(int i = 0; i< roleLists.size();i++){
-                    typeName += roleLists.get(i).getName() + "";
-                    typeId += roleLists.get(i).getId() + ", ";
+                    List<MyProfileData.RoleList> roleLists = response.body().getRoleList();
+                    for (int i = 0; i < roleLists.size(); i++) {
+                        typeName += roleLists.get(i).getName() + "";
+                        typeId += roleLists.get(i).getId() + ", ";
+
+                    }
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserRoleName", typeName).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserRoleId", typeId).apply();
+
 
                 }
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserRoleName", typeName).apply();
-                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserRoleId", typeId).apply();
+
+                @Override
+                public void onFailure(Call<MyProfileData> call, Throwable t) {
+                    //Toasty.error(getActivity(),t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("RESPONSE-ERROR", t.getMessage().toString());
+                }
+            });
+        }
+        if(sharedManagement.getStringSaved("myRole").equals("teacher")){
+            ImyProfile api = RetrofitBuilder.buildRetrofit(ImyProfile.BASE_URl).create(ImyProfile.class);
+            Call<MyProfileDataTeacher> call = api.getUserInfoTeacher(tokken);
+            call.enqueue(new Callback<MyProfileDataTeacher>() {
+                @Override
+                public void onResponse(Call<MyProfileDataTeacher> call, Response<MyProfileDataTeacher> response) {
+                    String typeName = "";
+                    String typeId = "";
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserName", response.body().getName()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserSurname", response.body().getSurname()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserPhone", response.body().getPhone()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserEmail", response.body().getEmail()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserIdNumber", response.body().getIdNumber()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserType", response.body().getType()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserAddress", response.body().getAddress()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserExperience", response.body().getExperience()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putInt("UserSalary", response.body().getSalary()).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserWorkPlace", String.valueOf(response.body().getWorkPlace())).apply();
+
+                    List<MyProfileDataTeacher.RoleList> roleLists = response.body().getRoleList();
+                    for (int i = 0; i < roleLists.size(); i++) {
+                        typeName += roleLists.get(i).getName() + "";
+                        typeId += roleLists.get(i).getId() + ", ";
+
+                    }
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserRoleName", typeName).apply();
+                    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserRoleId", typeId).apply();
 
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<MyProfileData> call, Throwable t) {
-                //Toasty.error(getActivity(),t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("RESPONSE-ERROR",t.getMessage().toString());
-            }
-        });
-
+                @Override
+                public void onFailure(Call<MyProfileDataTeacher> call, Throwable t) {
+                    //Toasty.error(getActivity(),t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("RESPONSE-ERROR", t.getMessage().toString());
+                }
+            });
+        }
     }
 
     @Override

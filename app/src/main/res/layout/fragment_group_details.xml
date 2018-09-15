@@ -18,13 +18,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/layout_bg">
+            android:background="@drawable/layout_bg"
+            android:elevation="3dp">
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView31"
+
+                android:layout_marginLeft="10dp"
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView31"
+                android:layout_below="@+id/textView37"
 
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"

@@ -307,7 +307,7 @@ public class FilteredPersons extends BaseFragment {
                 .build();
         Roles_Interface api = retrofit.create(Roles_Interface.class);
         Call<List<Roles>> call = api.getResultsRoles();
-        adapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, results1);
+        adapter1 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, results1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         call.enqueue(new Callback<List<Roles>>() {
             @Override
@@ -335,8 +335,9 @@ public class FilteredPersons extends BaseFragment {
         ArrayList<String> arr = new ArrayList<>();
         arr.add("Not accepted yet");
         arr.add("Accepted persons");
-        arr.add("Working persons");
-        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,arr);
+        arr.add("Ignored");
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item,arr);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lesson_type.setAdapter(arrayAdapter);
     }

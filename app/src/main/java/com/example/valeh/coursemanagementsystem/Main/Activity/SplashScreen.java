@@ -95,9 +95,13 @@ public class SplashScreen extends AppCompatActivity {
                         .create(ITokenUserTypeDataRX.class);
         if(NetworkStatus.getInstance(this).isOnline()) {
             if(lastToken.isEmpty() || lastToken.length()==0){
-                        startActivity(new Intent(SplashScreen.this, LoginRegister.class));
-                        sharedManagement.save("LOGOUT","0","string");
-                        finish();
+
+                        lastToken = "hello";
+                        sharedManagement.save("TOKEN","hello","string");
+
+//                        startActivity(new Intent(SplashScreen.this, LoginRegister.class));
+//                        sharedManagement.save("LOGOUT","0","string");
+//                        finish();
             }
            else {
                 compositeDisposable.add(iTokenUserTypeData.getType(lastToken)

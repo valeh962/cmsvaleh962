@@ -10,9 +10,12 @@ import android.os.Bundle;
 
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.Group_Add.AddNewGroup;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.MyGroups;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.FilterPersons.FilteredPersons;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.teacher_main_list;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_students;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_teachers;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.PersonTypeList.Menu_lists_1;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile;
@@ -255,6 +258,38 @@ public class MainMenu extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id == R.id.membersstudent){
+            setActionBarTitle("Students");
+            Fragment ft = new Members_students();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
+            if (currentFragment instanceof Members_students) {}
+
+            else {
+                replaceFragmentWithAnimation(ft, "Members_students");
+            }
+        }
+        if(id == R.id.groupeditor){
+            setActionBarTitle("Edit groups");
+            Fragment ft = new AddNewGroup();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
+            if (currentFragment instanceof AddNewGroup) {}
+
+            else {
+                replaceFragmentWithAnimation(ft, "AddNewGroup");
+            }
+        }
+
+        if(id == R.id.memberteacher){
+            setActionBarTitle("Teachers");
+            Fragment ft = new Members_teachers();
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
+            if (currentFragment instanceof Members_teachers) {}
+
+            else {
+                replaceFragmentWithAnimation(ft, "Members_teachers");
+            }
+        }
 
         if(id == R.id.groups){
             setActionBarTitle("My groups");

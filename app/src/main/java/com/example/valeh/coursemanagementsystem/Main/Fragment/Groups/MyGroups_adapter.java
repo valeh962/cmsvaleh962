@@ -34,7 +34,7 @@ public class MyGroups_adapter extends RecyclerView.Adapter<MyGroups_adapter.Main
         String subject = groupsMainDatum.getSubject().getName();
         String teacher = groupsMainDatum.getTeacher().getName();
 
-        mainViewHolder.tv1.setText("Group id: "+String.valueOf(gruoupId));
+        mainViewHolder.tv1.setText("Group "+String.valueOf(gruoupId));
         mainViewHolder.tv2.setText("Subject: "+subject);
         mainViewHolder.tv3.setText("Teacher: "+teacher);
 

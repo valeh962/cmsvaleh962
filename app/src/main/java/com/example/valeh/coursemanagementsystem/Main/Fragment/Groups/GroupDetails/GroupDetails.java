@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupMemberDetails.GroupMemberDetails;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.MyGroups_adapter;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.BaseFragment;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.RetrofitBuilder;
@@ -68,6 +70,7 @@ public class GroupDetails extends BaseFragment {
     private OnFragmentInteractionListener mListener;
     private String tokken;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private TextView tv3;
 
     public GroupDetails() {
         // Required empty public constructor
@@ -125,9 +128,10 @@ public class GroupDetails extends BaseFragment {
         MyApp.app().basicComponent().GroupDetails_inject(this);
         tv1 = view.findViewById(R.id.textView31);
         tv2 = view.findViewById(R.id.textView32);
+        tv3 = view.findViewById(R.id.textView37);
         tv2.setVisibility(View.GONE);
         tv1.setText("Group "+sharedManagement.getIntSaved("groupid")+", "+sharedManagement.getStringSaved("grpname"));
-
+        tv3.setText("Teacher: "+sharedManagement.getStringSaved("teachername"));
 
 
         tokken = sharedManagement.getStringSaved("TOKEN");
@@ -156,38 +160,38 @@ public class GroupDetails extends BaseFragment {
 
 
     private void handleresponse(ArrayList<GroupsMainDatum> groupsMainData) {
-        int j;
+
 //        ArrayList<GroupsMainDatum> list = groupsMainData;
 //        for (int i=0;i<list.size();i++){
             ArrayList<StudentList> list2 = groupsMainData.get(groupidpos).getStudentList();
             listsize = list2.size();
             tv2.setVisibility(View.VISIBLE);
             tv2.setText("Persons enrolled: "+String.valueOf(listsize));
-            for ( j=0;j<list2.size();j++){
+            for (int j=0;j<list2.size();j++){
             recyclerView = vv.findViewById(R.id.groupdet_rec);
             myGroups_adapter = new GroupDetails_adapter(list2);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(myGroups_adapter);
-
-
-
             myGroups_adapter.setOnItemClickListener(new GroupDetails_adapter.OnItemClickListener() {
                 @Override
                 public void OnItemClick(int position) {
 
-
-
-
-//                            Toast.makeText(getContext(),list.get(position).getSubject().getId()+" "
-//                                    +list.get(position).getTeacher().getName(),Toast.LENGTH_SHORT).show();
-
-
-//                            Fragment fr = new GroupDetails();
-//                            Bundle bundle = new Bundle();
-//                            bundle.putInt("groupId",list.get(position).getId());
-//                            fr.setArguments(bundle);
-//                            replaceFragmentWithAnimation(fr,"groupDetails",R.id.mainmenu_myfrg);
+                            sharedManagement.save("teacherstudent","s","string");
+                            Log.d("Touched:",list2.get(position).getName());
+                            Toast.makeText(getContext(),list2.get(position).getName(),Toast.LENGTH_SHORT).show();
+                            Fragment fr = new GroupMemberDetails();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("memberName",list2.get(position).getName());
+                            bundle.putString("memberSurname",list2.get(position).getSurname());
+                            bundle.putString("memberPhone",list2.get(position).getPhone());
+                            bundle.putString("memberEmail",list2.get(position).getEmail());
+                            bundle.putString("memberAddress",list2.get(position).getAddress());
+                            bundle.putString("memberUniversity",list2.get(position).getUniversity());
+                            bundle.putInt("memberGrade",list2.get(position).getGrade());
+                            bundle.putString("memberFaculty",list2.get(position).getFaculty());
+                            fr.setArguments(bundle);
+                            replaceFragmentWithAnimation(fr,"GroupMemberDetails",R.id.mainmenu_myfrg);
 
 
 

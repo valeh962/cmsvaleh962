@@ -37,7 +37,6 @@ public class Menu_lists_adapter extends RecyclerView.Adapter<Menu_lists_adapter.
             super(itemView);
 
             tv1 = itemView.findViewById(R.id.textView3);
-            tv2 = itemView.findViewById(R.id.textView18);
             img = itemView.findViewById(R.id.imageView5);
 
             itemView.setOnClickListener(new View.OnClickListener() {

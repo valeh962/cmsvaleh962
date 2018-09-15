@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.ImyProfile;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.MyProfileData;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Subject.Subject_1;
@@ -26,6 +28,8 @@ import com.example.valeh.coursemanagementsystem.R;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -59,6 +63,9 @@ public class MyProfile extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    private TextView tvex2;
+    @Inject
+    SharedManagement sharedManagement;
 
     public MyProfile() {
         // Required empty public constructor
@@ -94,7 +101,11 @@ public class MyProfile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        MyApp.app().basicComponent().MyProfile_inject(this);
+
         tvex = view.findViewById(R.id.textView41);
+        tvex2 = view.findViewById(R.id.textView43);
         ed1 = view.findViewById(R.id.editText);
         ed2 = view.findViewById(R.id.editText5);
         ed3 = view.findViewById(R.id.editText4);
@@ -104,6 +115,14 @@ public class MyProfile extends Fragment {
         tv2 = view.findViewById(R.id.textView13);
         tv3 = view.findViewById(R.id.textView39);
         tvex.setText("Name & surname");
+        if(sharedManagement.getStringSaved("UserType").equals("student")){
+            tvex2.setText("University, faculty and grade");
+        }
+        if(sharedManagement.getStringSaved("UserType").equals("teacher")){
+            tvex2.setText("University, faculty and grade");
+        }
+
+
 
         fillInfo();
 
@@ -119,9 +138,17 @@ public class MyProfile extends Fragment {
                 ed3.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserEmail", ""));
                 ed4.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserPhone", ""));
                 ed5.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserAddress", ""));
-                ed6.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserUniversity", "")+
-                ", "+PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserFaculty", "")+
-                ", "+PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserGrade", ""));
+
+                if(sharedManagement.getStringSaved("myRole").equals("student")) {
+                    ed6.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserUniversity", "") +
+                            ", " + PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserFaculty", "") +
+                            ", " + PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserGrade", ""));
+                }
+                if(sharedManagement.getStringSaved("myRole").equals("teacher")){
+                    ed6.setText("Works at "+PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserWorkPlace", "") +
+                            ", salary is about " + PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserSalary", "") +
+                            ", and experience is about " + PreferenceManager.getDefaultSharedPreferences(getContext()).getString("UserExperience", ""));
+                }
 
     }
 

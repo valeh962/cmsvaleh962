@@ -10,5 +10,6 @@ public interface ImyProfile {
     String BASE_URl = "http://192.168.43.115:8080/authentication/";
     @GET("info")
     Call<MyProfileData> getUserInfo(@Header("Authorization") String authToken);
+    Call<MyProfileDataTeacher> getUserInfoTeacher(@Header("Authorization") String authToken);
 
 }

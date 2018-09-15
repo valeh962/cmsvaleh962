@@ -30,14 +30,14 @@
         android:background="#fff"
         app:headerLayout="@layout/nav_header_main_menu">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center"
-            android:paddingBottom="15dp"
-            android:text="Course Managemet System (c)"
-            android:textColor="@color/colorPrimaryDark" />
+        <!--<TextView-->
+            <!--android:id="@+id/textView4"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="bottom|center"-->
+            <!--android:paddingBottom="15dp"-->
+            <!--android:text="Course Managemet System (c)"-->
+            <!--android:textColor="@color/colorPrimaryDark" />-->
 
     </android.support.design.widget.NavigationView>
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/n_back"
+    tools:context=".Main.Fragment.Groups.Group_Add.AddNewGroup">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:drawable/screen_background_light_transparent">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/dotted_back"
+            android:drawableLeft="@drawable/ic_add_black_24dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="   Add new group"
+            android:textSize="25dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/groups_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/textView18" />
+    </RelativeLayout>
+</RelativeLayout>
