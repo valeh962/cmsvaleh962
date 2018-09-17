@@ -1,7 +1,6 @@
 package com.example.valeh.coursemanagementsystem.Main.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,50 +9,43 @@ import android.os.Bundle;
 
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupDetails;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupMemberDetails.GroupMemberDetails;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.Group_Add.AddNewGroup;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.MyGroups;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.HomeScreens.Student.Home_student;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.FilterPersons.FilteredPersons;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.Teacher_details;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.teacher_main_list;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_1;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_2;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_3;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_4;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.edit_requests_list;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_students;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_teachers;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.PersonTypeList.Menu_lists_1;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.home_mainmenu;
-import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.ImyProfile;
-import com.example.valeh.coursemanagementsystem.Main.JsonWorks.MyProfile.MyProfileData;
 import com.example.valeh.coursemanagementsystem.R;
 import com.jaeger.library.StatusBarUtil;
-
-import me.anwarshahriar.calligrapher.Calligrapher;
-import okhttp3.ConnectionSpec;
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -109,6 +101,7 @@ public class MainMenu extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.home_1);
         View navhead = navigationView.getHeaderView(0);
         TextView tv1 = navhead.findViewById(R.id.textView26);
         TextView tv2 = navhead.findViewById(R.id.textView29);
@@ -134,25 +127,28 @@ public class MainMenu extends AppCompatActivity
 //        nav_name.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("UserName", ""));
 //        nav_type.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("UserType", ""));
         Fragment frr;
-        frr = new home_mainmenu();
+        frr = new Home_student();
         setActionBarTitle("Home");
-        replaceFragmentWithAnimation(frr,"home_mainmenu");
+        replaceFragmentWithAnimation(frr,"Home_student");
         String P_TYPE_N;
         P_TYPE_N = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("UserRoleId", "");
         if(P_TYPE_N.contains("1") && !P_TYPE_N.contains("2") && !P_TYPE_N.contains("3")){
             hideItem(R.id.editRequests);
-            hideItem(R.id.filtered);
             hideItem(R.id.nav_camera);
+            hideItem(R.id.groupeditor);
+            hideItem(R.id.filtered);
+            hideItem(R.id.memberteacher);
+            hideItem(R.id.membersstudent);
         }
         if(P_TYPE_N.equals("2") && !P_TYPE_N.contains("1") && !P_TYPE_N.contains("3")){
-            hideItem(R.id.filtered);
             hideItem(R.id.editRequests);
-           // hideItem(R.id.nav_camera);
+            hideItem(R.id.memberteacher);
+            hideItem(R.id.filtered);
         }
         if(P_TYPE_N.equals("2") && P_TYPE_N.contains("1") && !P_TYPE_N.contains("3")){
             hideItem(R.id.filtered);
             hideItem(R.id.editRequests);
-            // hideItem(R.id.nav_camera);
+            hideItem(R.id.memberteacher);
         }
 
 
@@ -166,18 +162,16 @@ public class MainMenu extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
 
+
+        Fragment fr_mainScreen = new Home_student();
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
         if (currentFragment instanceof home_mainmenu) {
-            //do your stuff here
-
-
-
-           new AlertDialog.Builder(this)
+         new AlertDialog.Builder(this)
                    .setMessage("Are you sure you want to exit?")
                    .setCancelable(false)
                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -192,9 +186,38 @@ public class MainMenu extends AppCompatActivity
                    .setNegativeButton("No",null)
                    .show();
         }
-        else{
-            super.onBackPressed();
 
+        if(currentFragment instanceof infortions_adv_4){
+            replaceFragmentWithAnimation_infortions(new infortions_adv_3(),"infortions_adv_3");
+        }
+        if(currentFragment instanceof infortions_adv_3){
+            replaceFragmentWithAnimation_infortions(new infortions_adv_2(),"infortions_adv_2");
+        }
+        if(currentFragment instanceof infortions_adv_2){
+            replaceFragmentWithAnimation_infortions(new infortions_adv_1(),"infortions_adv_1");
+        }
+        if(currentFragment instanceof infortions_adv_1){
+            replaceFragmentWithAnimation(new edit_requests_list(),"edit_requests_list");
+        }
+        if(currentFragment instanceof Teacher_details){
+            replaceFragmentWithAnimation(new teacher_main_list(),"teacher_main_list");
+        }
+        if(currentFragment instanceof GroupMemberDetails){
+            replaceFragmentWithAnimation(new GroupDetails(),"GroupDetails");
+            setActionBarTitle("Group details");
+        }
+        if(currentFragment instanceof GroupDetails){
+            replaceFragmentWithAnimation(new MyGroups(),"MyGroups");
+            setActionBarTitle("My groups");
+        }
+        if(currentFragment instanceof MyProfile){
+            replaceFragmentWithAnimation(new Settings(),"Settings");
+            setActionBarTitle("Settings");
+        }
+
+        else{
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            setActionBarTitle("Home");
         }
 
     }
@@ -306,10 +329,10 @@ public class MainMenu extends AppCompatActivity
 
 
             setActionBarTitle("Home");
-            Fragment ft = new home_mainmenu();
+            Fragment ft = new Home_student();
           //  replaceFragmentWithAnimation(ft,"home_mainmenu");
             Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
-            if (currentFragment instanceof home_mainmenu) {}
+            if (currentFragment instanceof Home_student) {}
 
             else {
                 replaceFragmentWithAnimation(ft, "home_mainmenu");
@@ -435,7 +458,15 @@ public class MainMenu extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.mainmenu_myfrg, fragment);
-        transaction.addToBackStack(tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void replaceFragmentWithAnimation_infortions(android.support.v4.app.Fragment fragment, String tag){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
+        transaction.replace(R.id.adv_frag, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

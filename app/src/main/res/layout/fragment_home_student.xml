@@ -3,7 +3,738 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main.Fragment.HomeScreens.Home_student">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relrelrel1"
+    android:background="@drawable/n_back"
+    tools:context=".Main.Fragment.HomeScreens.Student.Home_student">
 
+
+    <RelativeLayout
+        android:id="@+id/rrrr"
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/textView58"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textView581"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView58"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="#fff"
+                android:textSize="15dp" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divtop">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <RelativeLayout
+                            android:id="@+id/card_day1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame1"
+                                        android:background="?attr/selectableItemBackground">
+
+                                    </FrameLayout>
+
+                                    <TextView
+
+                                        android:id="@+id/title1"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:paddingBottom="10dp"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp"
+                                        android:paddingTop="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+
+                                    <TextView
+                                        android:id="@+id/time1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title1"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title1" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain1"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days1" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain1"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/card_day2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_day1"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame2"
+                                        android:background="?attr/selectableItemBackground">
+
+                                    </FrameLayout>
+                                    <TextView
+                                        android:id="@+id/title2"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:padding="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+                                    <TextView
+                                        android:id="@+id/time2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title2"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain21"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title2" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain21"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain22"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days2" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain22"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/card_day3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_day2"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame3"
+                                        android:background="?attr/selectableItemBackground">
+
+                                    </FrameLayout>
+                                    <TextView
+                                        android:id="@+id/title3"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:padding="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+                                    <TextView
+                                        android:id="@+id/time3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title3"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain31"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title3" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain31"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain32"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days3" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain32"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/card_day4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_day3"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame4"
+                                        android:background="?attr/selectableItemBackground">
+
+                                    </FrameLayout>
+                                    <TextView
+                                        android:id="@+id/title4"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:padding="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+                                    <TextView
+                                        android:id="@+id/time4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title4"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain41"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title4" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain41"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days4"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain42"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days4" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain42"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close4"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/card_day5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_day4"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame5"
+                                        android:background="?attr/selectableItemBackground">
+
+                                    </FrameLayout>
+                                    <TextView
+                                        android:id="@+id/title5"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:padding="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+                                    <TextView
+                                        android:id="@+id/time5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title5"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain51"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title5" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain51"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days5"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain52"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days5" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain52"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close5"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/card_day6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_day5"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame6"
+                                        android:background="?attr/selectableItemBackground">
+
+                                    </FrameLayout>
+                                    <TextView
+                                        android:id="@+id/title6"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:padding="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+                                    <TextView
+                                        android:id="@+id/time6"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title6"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain61"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title6" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain61"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain62"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days6" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain62"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close6"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/card_day7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_day6"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_title7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_bg">
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="80dp"
+                                        android:id="@+id/frame7"
+                                        android:background="?attr/selectableItemBackground">
+                                    </FrameLayout>
+                                    <TextView
+                                        android:id="@+id/title7"
+                                        style="@style/RobotoTextViewStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_centerHorizontal="true"
+
+                                        android:clickable="true"
+                                        android:gravity="center_vertical"
+                                        android:padding="10dp"
+                                        android:text="Monday"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="18dp" />
+                                    <TextView
+                                        android:id="@+id/time7"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/title7"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="TextView" />
+                                </RelativeLayout>
+
+                                <View
+                                    android:id="@+id/divmain71"
+                                    style="@style/Divider"
+                                    android:layout_below="@id/rel_title7" />
+
+                                <RelativeLayout
+                                    android:id="@+id/rel_content7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:layout_below="@+id/divmain71"
+                                    android:background="@drawable/layout_bg"
+                                    android:visibility="gone">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rec_days7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="110dp"
+                                        android:layout_alignParentTop="true">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <View
+                                        android:id="@+id/divmain72"
+                                        style="@style/Divider"
+                                        android:layout_below="@id/rec_days7" />
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="10dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_below="@id/divmain72"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:clickable="true">
+
+                                        <ImageView
+
+                                            android:id="@+id/close7"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_centerInParent="true"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
+                                    </RelativeLayout>
+                                </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <View
+                android:id="@+id/divtop"
+                style="@style/DividerWhite"
+                android:layout_below="@id/textView581"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

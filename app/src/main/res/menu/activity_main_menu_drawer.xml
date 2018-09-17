@@ -6,9 +6,10 @@
 
 
 
-
+    <group android:checkableBehavior="single">
         <item android:title="My Options">
             <menu>
+                <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/home_1"
                     android:title="@string/action_home"
@@ -25,6 +26,7 @@
                     android:title="My groups"
                     android:icon="@drawable/grouppng"
                     />
+                </group>
             </menu>
         </item>
 
@@ -34,8 +36,9 @@
 
 
 
-      <item android:title="Admin options">
+      <item android:title="Manager options">
           <menu>
+              <group android:checkableBehavior="single">
               <item
                   android:id="@+id/groupeditor"
                   android:icon="@drawable/grouppng"
@@ -66,7 +69,8 @@
                 android:id="@+id/memberteacher"
                 android:title="Teachers"
                 android:icon="@drawable/grouppng"
-                />
+              />
+              </group>
 
           </menu>
       </item>
@@ -88,4 +92,5 @@
             </group>
         </menu>
     </item>
+    </group>
 </menu>

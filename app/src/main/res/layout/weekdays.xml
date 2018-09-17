@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="100dp"
+    android:background="@drawable/n_back">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec_weekdays"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salam"
+        android:textColor="#fff" />
+
+    <Button
+        android:layout_below="@id/textView57"
+        android:id="@+id/buttontest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+</RelativeLayout>

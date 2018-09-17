@@ -174,7 +174,9 @@ public class infortions_adv_4 extends BaseFragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+
     }
+
 
 
 

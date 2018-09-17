@@ -240,23 +240,55 @@ public class SplashScreen extends AppCompatActivity {
                             case 0:
                                 sharedManagement.save("TOKEN","hello","string");
                                 sharedManagement.save("myRole","3","string");
-                                loginTest();
+                                choosePermissions(1);
+//                                loginTest();
                                 break;
                             case 1:
                                 sharedManagement.save("TOKEN","hello","string");
                                 sharedManagement.save("myRole","2","string");
-                                loginTest();
+                                choosePermissions(2);
+//                                loginTest();
                                 break;
                             case 2:
                                 sharedManagement.save("TOKEN","hello","string");
                                 sharedManagement.save("myRole","1","string");
-                                loginTest();
+                                choosePermissions(3);
+//                                loginTest();
                                 break;
                         }
                     }
                 });
         builder.show();
     }
+
+    private void choosePermissions(int i) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
+        builder.setTitle("Choose permission");
+        builder.setItems(new CharSequence[]
+                        {"Administration permissions", "Teacher permissions", "Student permissions"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                sharedManagement.save("UserRoleId","3","string");
+                                loginTest();
+                                break;
+                            case 1:
+                                sharedManagement.save("UserRoleId","2","string");
+                                loginTest();
+                                break;
+                            case 2:
+                                sharedManagement.save("UserRoleId","1","string");
+                                loginTest();
+                                break;
+                        }
+                    }
+                });
+        builder.show();
+
+    }
+
     private void loginTest() {
         if(!pin.equals("")) {
             if(fingEnable.equals("1"))

@@ -27,7 +27,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/activity_main_menu_drawer"
-        android:background="#fff"
+
+        app:itemBackground="@drawable/nav_selected_item"
         app:headerLayout="@layout/nav_header_main_menu">
 
         <!--<TextView-->
