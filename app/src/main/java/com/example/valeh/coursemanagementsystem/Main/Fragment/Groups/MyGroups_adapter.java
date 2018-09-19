@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Groups.GroupsMainDatum;
@@ -17,12 +18,13 @@ public class MyGroups_adapter extends RecyclerView.Adapter<MyGroups_adapter.Main
 
     private ArrayList<GroupsMainDatum> mlist;
     public OnItemClickListener mlistener;
+    public OnItemLongClickListener mLongListener;
 
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.groups_cardview,viewGroup,false );
-        MyGroups_adapter.MainViewHolder mvh = new MyGroups_adapter.MainViewHolder(v,mlistener);
+        MyGroups_adapter.MainViewHolder mvh = new MyGroups_adapter.MainViewHolder(v,mlistener,mLongListener);
         return mvh;
     }
 
@@ -49,8 +51,16 @@ public class MyGroups_adapter extends RecyclerView.Adapter<MyGroups_adapter.Main
         void OnItemClick(int position);
     }
 
+    public interface OnItemLongClickListener {
+        void OnItemLongClick(int position);
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         mlistener = onItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
+        mLongListener = onItemLongClickListener;
     }
 
     public MyGroups_adapter (ArrayList<GroupsMainDatum> lists){
@@ -61,7 +71,7 @@ public class MyGroups_adapter extends RecyclerView.Adapter<MyGroups_adapter.Main
 
         public TextView tv1,tv2,tv3;
 
-        public MainViewHolder(@NonNull View itemView,OnItemClickListener onItemClickListener) {
+        public MainViewHolder(@NonNull View itemView,OnItemClickListener onItemClickListener,OnItemLongClickListener onItemLongClickListener) {
             super(itemView);
 
             tv1 = itemView.findViewById(R.id.textView17);
@@ -76,6 +86,19 @@ public class MyGroups_adapter extends RecyclerView.Adapter<MyGroups_adapter.Main
                         if(position!=RecyclerView.NO_POSITION){
                             onItemClickListener.OnItemClick(position);
                         }}
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(onItemLongClickListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            onItemLongClickListener.OnItemLongClick(position);
+                            return true;
+                        }}
+                    return false;
                 }
             });
 

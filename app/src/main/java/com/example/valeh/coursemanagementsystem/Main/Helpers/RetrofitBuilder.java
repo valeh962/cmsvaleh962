@@ -17,9 +17,9 @@ public class RetrofitBuilder {
     public static Retrofit buildRetrofit(String BASE_URL){
 
         OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.connectTimeout(5, TimeUnit.SECONDS);
-        client.readTimeout(5, TimeUnit.SECONDS);
-        client.writeTimeout(5, TimeUnit.SECONDS);
+        client.connectTimeout(15, TimeUnit.SECONDS);
+        client.readTimeout(15, TimeUnit.SECONDS);
+        client.writeTimeout(15, TimeUnit.SECONDS);
 
                  Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -35,9 +35,9 @@ public class RetrofitBuilder {
     public static Retrofit buildRetrofitrx(String Base_URL) {
         Retrofit retrofitt = null;
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
                 .build();
             if (retrofitt == null) {
                 retrofitt = new Retrofit.Builder()

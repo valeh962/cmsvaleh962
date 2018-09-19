@@ -102,14 +102,15 @@ public class login_request2 extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        Calligrapher calligrapher = new Calligrapher(getActivity());
-//        calligrapher.setFont(getActivity(),"font/CirceRounded-Light.otf",true);
+        MyApp.app().basicComponent().login_request2_inject(this);
         PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("LOGOUT", "0").apply();
         String tokken = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("TOKEN", "");
+        String myRole = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("myRole", "");
 
-        MyApp.app().basicComponent().login_request2_inject(this);
-
-        fillInfo(tokken);
+        Log.d("myRole_req",myRole);
+        Log.d("token_req",tokken);
+        Log.d("myRole_req","salam");
+        fillInfo(tokken,myRole);
 
         ButterKnife.bind(this,view);
         if (view != null) {
@@ -159,9 +160,9 @@ public class login_request2 extends Fragment {
         });
     }
 
-    private void fillInfo(String tokken) {
+    private void fillInfo(String tokken, String myRole) {
 
-        if(sharedManagement.getStringSaved("myRole").equals("student")) {
+        if(myRole.equals("1")) {
             ImyProfile api = RetrofitBuilder.buildRetrofit(ImyProfile.BASE_URl).create(ImyProfile.class);
             Call<MyProfileData> call = api.getUserInfo(tokken);
             call.enqueue(new Callback<MyProfileData>() {
@@ -199,7 +200,7 @@ public class login_request2 extends Fragment {
                 }
             });
         }
-        if(sharedManagement.getStringSaved("myRole").equals("teacher")){
+        if(myRole.equals("2")){
             ImyProfile api = RetrofitBuilder.buildRetrofit(ImyProfile.BASE_URl).create(ImyProfile.class);
             Call<MyProfileDataTeacher> call = api.getUserInfoTeacher(tokken);
             call.enqueue(new Callback<MyProfileDataTeacher>() {

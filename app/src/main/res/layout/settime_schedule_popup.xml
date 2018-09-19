@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_transparent_layout_bg">
+
+    <TextView
+        android:id="@+id/textView63"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="Set time"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <View
+        android:layout_below="@+id/textView63"
+        android:id="@+id/divo"
+        style="@style/DividerWhite"/>
+
+    <TimePicker
+        android:id="@+id/timepicker1"
+        android:layout_below="@+id/divo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner">
+
+    </TimePicker>
+
+    <View
+        android:layout_below="@+id/timepicker1"
+        android:id="@+id/divo1"
+        style="@style/DividerWhite"/>
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:id="@+id/cls_timepicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divo1"
+        android:src="@drawable/ic_check_white_24dp" />
+
+
+</RelativeLayout>

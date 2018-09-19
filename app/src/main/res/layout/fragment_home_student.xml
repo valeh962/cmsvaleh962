@@ -23,13 +23,12 @@
             <TextView
                 android:id="@+id/textView58"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
+                android:paddingLeft="30dp"
                 android:text="TextView"
                 android:textColor="#fff"
                 android:textSize="20dp" />
@@ -37,12 +36,12 @@
             <TextView
                 android:id="@+id/textView581"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_below="@id/textView58"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:gravity="center"
+                android:paddingLeft="30dp"
                 android:text="TextView"
                 android:textColor="#fff"
                 android:textSize="15dp" />
@@ -55,7 +54,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -81,9 +80,9 @@
                                     android:background="@drawable/layout_bg">
 
                                     <FrameLayout
+                                        android:id="@+id/frame1"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame1"
                                         android:background="?attr/selectableItemBackground">
 
                                     </FrameLayout>
@@ -179,13 +178,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_bg">
+
                                     <FrameLayout
+                                        android:id="@+id/frame2"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame2"
                                         android:background="?attr/selectableItemBackground">
 
                                     </FrameLayout>
+
                                     <TextView
                                         android:id="@+id/title2"
                                         style="@style/RobotoTextViewStyle"
@@ -199,6 +200,7 @@
                                         android:text="Monday"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="18dp" />
+
                                     <TextView
                                         android:id="@+id/time2"
                                         android:layout_width="wrap_content"
@@ -272,13 +274,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_bg">
+
                                     <FrameLayout
+                                        android:id="@+id/frame3"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame3"
                                         android:background="?attr/selectableItemBackground">
 
                                     </FrameLayout>
+
                                     <TextView
                                         android:id="@+id/title3"
                                         style="@style/RobotoTextViewStyle"
@@ -292,6 +296,7 @@
                                         android:text="Monday"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="18dp" />
+
                                     <TextView
                                         android:id="@+id/time3"
                                         android:layout_width="wrap_content"
@@ -366,13 +371,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_bg">
+
                                     <FrameLayout
+                                        android:id="@+id/frame4"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame4"
                                         android:background="?attr/selectableItemBackground">
 
                                     </FrameLayout>
+
                                     <TextView
                                         android:id="@+id/title4"
                                         style="@style/RobotoTextViewStyle"
@@ -386,6 +393,7 @@
                                         android:text="Monday"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="18dp" />
+
                                     <TextView
                                         android:id="@+id/time4"
                                         android:layout_width="wrap_content"
@@ -459,13 +467,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_bg">
+
                                     <FrameLayout
+                                        android:id="@+id/frame5"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame5"
                                         android:background="?attr/selectableItemBackground">
 
                                     </FrameLayout>
+
                                     <TextView
                                         android:id="@+id/title5"
                                         style="@style/RobotoTextViewStyle"
@@ -479,6 +489,7 @@
                                         android:text="Monday"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="18dp" />
+
                                     <TextView
                                         android:id="@+id/time5"
                                         android:layout_width="wrap_content"
@@ -552,13 +563,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_bg">
+
                                     <FrameLayout
+                                        android:id="@+id/frame6"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame6"
                                         android:background="?attr/selectableItemBackground">
 
                                     </FrameLayout>
+
                                     <TextView
                                         android:id="@+id/title6"
                                         style="@style/RobotoTextViewStyle"
@@ -572,6 +585,7 @@
                                         android:text="Monday"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="18dp" />
+
                                     <TextView
                                         android:id="@+id/time6"
                                         android:layout_width="wrap_content"
@@ -645,12 +659,13 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_bg">
+
                                     <FrameLayout
+                                        android:id="@+id/frame7"
                                         android:layout_width="match_parent"
                                         android:layout_height="80dp"
-                                        android:id="@+id/frame7"
-                                        android:background="?attr/selectableItemBackground">
-                                    </FrameLayout>
+                                        android:background="?attr/selectableItemBackground"></FrameLayout>
+
                                     <TextView
                                         android:id="@+id/title7"
                                         style="@style/RobotoTextViewStyle"
@@ -664,6 +679,7 @@
                                         android:text="Monday"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="18dp" />
+
                                     <TextView
                                         android:id="@+id/time7"
                                         android:layout_width="wrap_content"

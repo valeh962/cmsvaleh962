@@ -140,7 +140,7 @@ public class Members_teachers extends BaseFragment {
                 public void OnItemClick(int position) {
 
                     sharedManagement.save("teacherstudent","t","string");
-                    Fragment fr = new GroupMemberDetails();
+                    Fragment fr = new Member_details_tcr();
                     Bundle bundle = new Bundle();
                     bundle.putString("tcname",list.get(position).getName());
                     bundle.putString("tcsurname",list.get(position).getSurname());

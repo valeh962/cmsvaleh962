@@ -45,6 +45,7 @@
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
     <string name="title_activity_sdfsfdf">sdfsfdf</string>
+    <string name="title_activity_my_profile_">MyProfile_A</string>
 
 
 </resources>

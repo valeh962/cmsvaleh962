@@ -2,11 +2,10 @@ package com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.Group_Add;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,18 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
-import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupMemberDetails.GroupMemberDetails;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupSchedule.AddSchedule;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.MyGroups_adapter;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_adapter;
-import com.example.valeh.coursemanagementsystem.Main.Fragment.Request.make_request3;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.BaseFragment;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.RetrofitBuilder;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Groups.AddGroup_Data;
@@ -42,15 +38,13 @@ import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Login.LoginRespon
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Members.IMembersData;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Members.Member_Students_data;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Members.Member_Teachers_data;
-import com.example.valeh.coursemanagementsystem.Main.JsonWorks.SendRequest.ReqBody;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Subject.Subject_1;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Subject.Subject_Interface;
 import com.example.valeh.coursemanagementsystem.R;
 
-import java.net.UnknownServiceException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -58,15 +52,9 @@ import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ConnectionSpec;
-import okhttp3.OkHttpClient;
-import okhttp3.internal.connection.RouteException;
-import okhttp3.internal.platform.Platform;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,9 +70,6 @@ public class AddNewGroup extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     MyGroups_adapter myGroups_adapter;
     RecyclerView recyclerView;
     RecyclerView recyclerView22;
@@ -129,17 +114,16 @@ public class AddNewGroup extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_new_group, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_add_new_group, container, false);
     }
 
     @Override
@@ -150,24 +134,21 @@ public class AddNewGroup extends BaseFragment {
         tokken = sharedManagement.getStringSaved("TOKEN");
         Log.d("TOKEN", tokken);
         addnew = view.findViewById(R.id.textView18);
-        addnew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddPopUp(tokken, getContext());
-            //    showPopUp(tokken,2,getContext());
-            }
+        addnew.setOnClickListener(v -> {
+            showAddPopUp(tokken, getContext());
+        //    showPopUp(tokken,2,getContext());
         });
         results1 = new ArrayList<>();
         results2 = new ArrayList<>();
         i1 = new ArrayList<>();
         i2 = new ArrayList<>();
         vv = view;
-        getAllGroups(tokken);
+        getAllGroups();
 
     }
 
 
-    private void getAllGroups(String tokken) {
+    private void getAllGroups() {
 
         IGroupsData iGroupsData = RetrofitBuilder.buildRetrofitrx(IGroupsData.BASE_URL).create(IGroupsData.class);
         compositeDisposable.add(iGroupsData.getAllGroupData()
@@ -178,22 +159,15 @@ public class AddNewGroup extends BaseFragment {
     }
 
     private void handleresponse(ArrayList<GroupsMainDatum> groupsMainData) {
-        ArrayList<GroupsMainDatum> list = groupsMainData;
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < groupsMainData.size(); i++) {
             recyclerView = vv.findViewById(R.id.groups_recycler);
-            myGroups_adapter = new MyGroups_adapter(list);
+            myGroups_adapter = new MyGroups_adapter(groupsMainData);
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(myGroups_adapter);
-            myGroups_adapter.setOnItemClickListener(new MyGroups_adapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(int position) {
+            myGroups_adapter.setOnItemClickListener(position -> showPopUp(tokken, groupsMainData.get(position).getId(),getContext()));
 
-                    showPopUp(tokken,list.get(position).getId(),getContext());
-
-
-                }
-            });
+            myGroups_adapter.setOnItemLongClickListener(position -> startActivity(new Intent(getActivity(), AddSchedule.class)));
         }
 
     }
@@ -210,7 +184,7 @@ public class AddNewGroup extends BaseFragment {
         dialog.setContentView(R.layout.add_new_group_popup);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         float dm = 0.5f;
         dialog.getWindow().setDimAmount(dm);
 
@@ -221,48 +195,43 @@ public class AddNewGroup extends BaseFragment {
         fillSpinner(tokken);
 
 
-        crt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        crt.setOnClickListener(v -> {
+            AddGroup_Data addGroup_data = new AddGroup_Data(
+                    new AddGroup_Data.Subject(i2.get(spinner.getSelectedItemPosition())),
+                    new AddGroup_Data.Teacher(i1.get(spinner2.getSelectedItemPosition()))
+            );
+            IGroupsData postreq = RetrofitBuilder.buildRetrofit(IGroupsData.BASE_URL).create(IGroupsData.class);
+            Call<LoginResponseData> call = postreq.createGroup(tokken, addGroup_data);
 
+            call.enqueue(new Callback<LoginResponseData>() {
+                @Override
+                public void onResponse(@NonNull Call<LoginResponseData> call, @NonNull Response<LoginResponseData> response) {
 
-                AddGroup_Data addGroup_data = new AddGroup_Data(
-
-                        new AddGroup_Data.Subject(i2.get(spinner.getSelectedItemPosition())),
-                        new AddGroup_Data.Teacher(i1.get(spinner2.getSelectedItemPosition()))
-
-                );
-                IGroupsData postreq = RetrofitBuilder.buildRetrofit(IGroupsData.BASE_URL).create(IGroupsData.class);
-                Call<LoginResponseData> call = postreq.createGroup(tokken, addGroup_data);
-
-                call.enqueue(new Callback<LoginResponseData>() {
-                    @Override
-                    public void onResponse(Call<LoginResponseData> call, Response<LoginResponseData> response) {
-
-                        if (response.isSuccessful()) {
-                            Toasty.success(getActivity(), "Group created!", Toast.LENGTH_SHORT).show();
-                            Log.d("MESSAGE",response.body().getMessage());
-                            dialog.dismiss();
-                        }
-
-                        else {
-                            Toasty.error(getActivity(), "Error! Please try again later.", Toast.LENGTH_SHORT).show();
-                            Log.d("MESSAGE",response.body().getMessage());
-                            dialog.dismiss();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<LoginResponseData> call, Throwable t) {
-
-                        Toasty.error(getActivity(), "Error! Please try again later.", Toast.LENGTH_SHORT).show();
+                    if (response.isSuccessful()) {
+                        Toasty.success(Objects.requireNonNull(getActivity()), "Group created!", Toast.LENGTH_SHORT).show();
+                        assert response.body() != null;
+                        Log.d("MESSAGE", String.valueOf(response.body()));
                         dialog.dismiss();
-                        //          Log.e("response-failure", call.toString());
                     }
-                });
 
-            }
+                    else {
+                        Toasty.error(Objects.requireNonNull(getActivity()), "Error! Please try again later.", Toast.LENGTH_SHORT).show();
+                        assert response.body() != null;
+                        Log.d("MESSAGE", String.valueOf(response.body()));
+                        dialog.dismiss();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<LoginResponseData> call, @NonNull Throwable t) {
+
+                    Toasty.error(Objects.requireNonNull(getActivity()), "Error! Please try again later.", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    //          Log.e("response-failure", call.toString());
+                }
+            });
+
         });
         dialog.show();
     }
@@ -271,30 +240,33 @@ public class AddNewGroup extends BaseFragment {
 
         IMembersData api = RetrofitBuilder.buildRetrofit(IMembersData.BASE_URL_TCR).create(IMembersData.class);
         Call<ArrayList<Member_Teachers_data>> call = api.getMemberTeachersn(tokken);
-        adapter1 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, results1);
+        adapter1 = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_item, results1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         call.enqueue(new Callback<ArrayList<Member_Teachers_data>>() {
             @Override
-            public void onResponse(Call<ArrayList<Member_Teachers_data>> call, Response<ArrayList<Member_Teachers_data>> response) {
+            public void onResponse(@NonNull Call<ArrayList<Member_Teachers_data>> call, @NonNull Response<ArrayList<Member_Teachers_data>> response) {
 
                 results1.clear();
                 if (response.isSuccessful()) {
-                    Log.d("Success", response.body().toString());
+                    assert response.body() != null;
+                    Log.d("Success", String.valueOf(response.body()));
                     ArrayList<Member_Teachers_data> subject_1s = response.body();
+                    assert subject_1s != null;
                     for (int i = 0; i < subject_1s.size(); i++) {
                         results1.add(subject_1s.get(i).getName() + " " + subject_1s.get(i).getSurname());
                         i1.add(subject_1s.get(i).getId());
                     }
                     adapter1.notifyDataSetChanged();
                 } else {
-                    Log.d("ERROR", response.body().toString());
+                    assert response.body() != null;
+                    Log.d("ERROR", String.valueOf(response.body()));
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Member_Teachers_data>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<Member_Teachers_data>> call, @NonNull Throwable t) {
                 //Toasty.error(getActivity(),t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("RESPONSE-ERROR", t.getMessage().toString());
+                Log.d("RESPONSE-ERROR", t.getMessage());
             }
         });
         spinner.setAdapter(adapter1);
@@ -302,13 +274,14 @@ public class AddNewGroup extends BaseFragment {
 
         Subject_Interface api2 = RetrofitBuilder.buildRetrofit(Subject_Interface.BASE_URL).create(Subject_Interface.class);
         Call<List<Subject_1>> call2 = api2.getResults();
-        adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, results2);
+        adapter2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, results2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         call2.enqueue(new Callback<List<Subject_1>>() {
             @Override
-            public void onResponse(Call<List<Subject_1>> call, Response<List<Subject_1>> response) {
+            public void onResponse(@NonNull Call<List<Subject_1>> call, @NonNull Response<List<Subject_1>> response) {
                 results2.clear();
                 List<Subject_1> subject_1s = response.body();
+                assert subject_1s != null;
                 for (int i = 0; i < subject_1s.size(); i++) {
                     results2.add(subject_1s.get(i).getName());
                     i2.add(subject_1s.get(i).getId());
@@ -317,9 +290,9 @@ public class AddNewGroup extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<List<Subject_1>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Subject_1>> call, @NonNull Throwable t) {
                 //Toasty.error(getActivity(),t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("RESPONSE-ERROR", t.getMessage().toString());
+                Log.d("RESPONSE-ERROR", t.getMessage());
             }
         });
         spinner2.setAdapter(adapter2);
@@ -332,28 +305,22 @@ public class AddNewGroup extends BaseFragment {
         dialog1.setContentView(R.layout.students_add_popup);
         dialog1.setCanceledOnTouchOutside(true);
         dialog1.setCancelable(true);
-        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog1.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         float dm = 0.5f;
         dialog1.getWindow().setDimAmount(dm);
 
         recyclerView22 = dialog1.findViewById(R.id.reccc1);
         TextView tx = dialog1.findViewById(R.id.textView53);
-        tx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog1.dismiss();
-            }
-        });
+        tx.setOnClickListener(v -> dialog1.dismiss());
         ididid= id;
-        fillRecycler(tokken,dialog1);
+        fillRecycler(tokken);
         dialog1.show();
 
 
 
     }
 
-    private void fillRecycler(String tokken,Dialog dialog) {
+    private void fillRecycler(String tokken) {
 
         IMembersData iMembersData = RetrofitBuilder.buildRetrofitrx(IMembersData.BASE_URL_STD).create(IMembersData.class);
         compositeDisposable.add(iMembersData.getMemberStudents(tokken)
@@ -365,35 +332,19 @@ public class AddNewGroup extends BaseFragment {
 
     private void fillRecyclerResponse(ArrayList<Member_Students_data> member_students_data) {
 
-        ArrayList<Member_Students_data> list = member_students_data;
-        for (int i=0;i<list.size();i++){
+        for (int i = 0; i< member_students_data.size(); i++){
 
-            members_adapter = new Members_adapter(list);
+            members_adapter = new Members_adapter(member_students_data);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView22.setLayoutManager(layoutManager);
             recyclerView22.setAdapter(members_adapter);
-            members_adapter.setOnItemClickListener(new Members_adapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(int position) {
+            members_adapter.setOnItemClickListener(position -> Objects.requireNonNull(new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                    .setMessage("Add student?")
+                    .setCancelable(true)
 
-                    new AlertDialog.Builder(getContext())
-                            .setMessage("Add student?")
-                            .setCancelable(true)
-
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    addStdToGroup(list.get(position).getId());
-
-                                }
-                            })
-                            .setNegativeButton("No",null)
-                            .show().getWindow().setLayout(600,400);
-
-
-
-                }
-            });
+                    .setPositiveButton("Yes", (dialogInterface, i3) -> addStdToGroup(member_students_data.get(position).getId()))
+                    .setNegativeButton("No", null)
+                    .show().getWindow()).setLayout(600,400));
         }
 
     }
@@ -405,23 +356,23 @@ public class AddNewGroup extends BaseFragment {
 
         call.enqueue(new Callback<LoginResponseData>() {
             @Override
-            public void onResponse(Call<LoginResponseData> call, Response<LoginResponseData> response) {
+            public void onResponse(@NonNull Call<LoginResponseData> call, @NonNull Response<LoginResponseData> response) {
                if(response.isSuccessful()) {
-                   Toasty.success(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
+                   Toasty.success(Objects.requireNonNull(getActivity()), "Success!", Toast.LENGTH_SHORT).show();
 
                }
 
 
                else {
-                   Toasty.error(getActivity(),"Error! Please try again later.",Toast.LENGTH_SHORT).show();
+                   Toasty.error(Objects.requireNonNull(getActivity()),"Student already added!",Toast.LENGTH_SHORT).show();
                }
 
             }
 
             @Override
-            public void onFailure(Call<LoginResponseData> call, Throwable t) {
+            public void onFailure(@NonNull Call<LoginResponseData> call, @NonNull Throwable t) {
 
-                Toasty.error(getActivity(),"Error! Please try again later.",Toast.LENGTH_SHORT).show();
+                Toasty.error(Objects.requireNonNull(getActivity()),"Error! Please try again later.",Toast.LENGTH_SHORT).show();
                 //          Log.e("response-failure", call.toString());
             }
         });

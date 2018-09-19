@@ -59,7 +59,6 @@ public class Menu_lists extends BaseFragment {
     Bundle bundle;
     List<Roles> clicked;
     List<Roles> list;
-    Fragment drr = new teacher_main_list();
     Fragment qrr = new com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.edit_requests_list();
     teacher_main_list ttt = new teacher_main_list();
     String kitt;

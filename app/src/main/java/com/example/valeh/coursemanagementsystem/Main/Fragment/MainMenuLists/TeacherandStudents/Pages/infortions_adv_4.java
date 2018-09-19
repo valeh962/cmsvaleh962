@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.teacher_main_list;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.edit_requests_list;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.PersonTypeList.Menu_lists;
@@ -29,6 +31,8 @@ import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Login.LoginRespon
 import com.example.valeh.coursemanagementsystem.R;
 
 import java.util.zip.Inflater;
+
+import javax.inject.Inject;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -63,7 +67,8 @@ public class infortions_adv_4 extends BaseFragment {
     ProgressDialog progressDialog;
     String ttoken;
     String pname,psurname,pemail,pphone,paddress,padditional,ppersontypeid,ppersonid,pid,psubjectid;
-
+    @Inject
+    SharedManagement sharedManagement;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,19 +93,18 @@ public class infortions_adv_4 extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            pname = bundle.getString("Name");
-            psurname= bundle.getString("Surname");
-            pemail= bundle.getString("Email");
-            pphone= bundle.getString("Phone");
-            paddress= bundle.getString("Address");
-            padditional= bundle.getString("Additional");
-            ppersonid= bundle.getString("PersonId");
-            ppersontypeid= bundle.getString("PersonTypeId");
-            psubjectid= bundle.getString("SubjectId");
-            pid= bundle.getString("Id");
-        }
+        MyApp.app().basicComponent().infort4_inject(this);
+
+        pname =     sharedManagement.getStringSaved("acceptName");
+        psurname=   sharedManagement.getStringSaved("acceptSurname");
+        pemail=     sharedManagement.getStringSaved("acceptEmail");
+        pphone=     sharedManagement.getStringSaved("acceptPhone");
+        paddress=   sharedManagement.getStringSaved("acceptAddress");
+        padditional=sharedManagement.getStringSaved("acceptAdditional");
+        ppersonid=  sharedManagement.getStringSaved("acceptPersonId");
+        ppersontypeid= sharedManagement.getStringSaved("acceptPersonTypeId");
+        psubjectid= sharedManagement.getStringSaved("acceptSubjectId");
+        pid=        sharedManagement.getStringSaved("acceptId");
 
     }
 

@@ -2,6 +2,8 @@ package com.example.valeh.coursemanagementsystem.Main.Fragment.HomeScreens.Stude
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alespero.expandablecardview.ExpandableCardView;
+import com.example.valeh.coursemanagementsystem.Main.Activity.PinClasses.PinChange;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Schedule.ScheduleMockData;
 import com.example.valeh.coursemanagementsystem.R;
 
@@ -106,7 +110,6 @@ public class Home_student extends Fragment {
     SimpleDateFormat sdf2 = new SimpleDateFormat("HH:MM");
     Calendar calendar = Calendar.getInstance();
 
-
     String dayOfWeek = sdf1.format(calendar.getTime());
     String currentClock = sdf2.format(calendar.getTime());
     int weekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -156,41 +159,55 @@ public class Home_student extends Fragment {
         return inflater.inflate(R.layout.fragment_home_student, container, false);
     }
 
-
-
     @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         initDays(view);
         currentDate = view.findViewById(R.id.textView58);
         currentDate_hour = view.findViewById(R.id.textView581);
         currentDate.setText(currentDateandTime);
-
         Handler someHandler = new Handler(getMainLooper());
         someHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                currentDate_hour.setText(new SimpleDateFormat("HH:mm").format(new Date()));
+                currentDate_hour.setText(dayOfWeek+", "+new SimpleDateFormat("HH:mm").format(new Date()));
                 someHandler.postDelayed(this, 1000);
             }
         }, 10);
 
-
-
-
-
+        showSuggestSecurity();
 
     }
 
-    private void initDays(View view) {
+    private void showSuggestSecurity() {
+//        new AlertDialog.Builder(getContext())
+//                .setCancelable(true)
+//                .setMessage("Do you want to create security PIN/Fingerprint?")
+//                .setPositiveButton("Yes, sure!", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        sharedManagement.save("SuggestSecurity","1","string");
+//                        sharedManagement.save("PINCHANGE","1","string");
+//                        startActivity(new Intent(getApplicationContext(), PinChange.class));
+//                        finish();
+//
+//                    }
+//                })
+//                .setNegativeButton("No, thanks!", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        sharedManagement.save("SuggestSecurity","1","string");
+//                    }
+//                })
+//                .show();
+    }
 
+    private void initDays(View view) {
         day_setup(view,R.id.rec_days1,R.id.rel_content1,R.id.close1,R.id.title1,"Monday"
-                    ,recyclerView1,rel_content1,close1,title1,1,R.id.time1,time1,getStartEndOFWeek(1),R.id.frame1,frame1);
+                ,recyclerView1,rel_content1,close1,title1,1,R.id.time1,time1,getStartEndOFWeek(1),R.id.frame1,frame1);
         day_setup(view,R.id.rec_days2,R.id.rel_content2,R.id.close2,R.id.title2,"Tuesday"
-                    ,recyclerView2,rel_content2,close2,title2,2,R.id.time2,time2,getStartEndOFWeek(2),R.id.frame2,frame2);
+                ,recyclerView2,rel_content2,close2,title2,2,R.id.time2,time2,getStartEndOFWeek(2),R.id.frame2,frame2);
         day_setup(view,R.id.rec_days3,R.id.rel_content3,R.id.close3,R.id.title3,"Wednesday"
                 ,recyclerView3,rel_content3,close3,title3,3,R.id.time3,time3,getStartEndOFWeek(3),R.id.frame3,frame3);
         day_setup(view,R.id.rec_days4,R.id.rel_content4,R.id.close4,R.id.title4,"Thursday"
@@ -201,11 +218,7 @@ public class Home_student extends Fragment {
                 ,recyclerView6,rel_content6,close6,title6,6,R.id.time6,time6,getStartEndOFWeek(6),R.id.frame6,frame6);
         day_setup(view,R.id.rec_days7,R.id.rel_content7,R.id.close7,R.id.title7,"Sunday"
                 ,recyclerView7,rel_content7,close7,title7,7,R.id.time7,time7,getStartEndOFWeek(7),R.id.frame7,frame7);
-
-
     }
-
-
 
     private void day_setup(View view, int rec_days, int rel_content, int close, int title, String titlest,
                            RecyclerView rec_ex, RelativeLayout rel_content_ex, ImageView close_ex, TextView title_ex,int weekday
@@ -327,15 +340,12 @@ public class Home_student extends Fragment {
         return arr;
     }
 
-
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
     @Override
     public void onDetach() {
@@ -398,7 +408,6 @@ public class Home_student extends Fragment {
         });
         v.startAnimation(scaleAnimation);
     }
-
 
     public String getStartEndOFWeek(int day){
 

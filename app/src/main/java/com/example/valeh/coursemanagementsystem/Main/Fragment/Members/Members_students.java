@@ -142,9 +142,8 @@ public class Members_students extends BaseFragment {
                 @Override
                 public void OnItemClick(int position) {
 
-                    sharedManagement.save("teacherstudent","s","string");
 
-                    Fragment fr = new GroupMemberDetails();
+                    Fragment fr = new Member_details();
                     Bundle bundle = new Bundle();
                     bundle.putString("memberName",list.get(position).getName());
                     bundle.putString("memberSurname",list.get(position).getSurname());

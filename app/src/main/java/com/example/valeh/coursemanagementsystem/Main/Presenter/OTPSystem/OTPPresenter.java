@@ -110,7 +110,7 @@ public class OTPPresenter extends RetrofitBuilder implements IOTPPresenter {
     public void getRole(Retrofit retrofit, String tokkken){
 
 
-        Log.d("myRole", tokkken);
+        Log.d("tokken", tokkken);
      //   Log.d("myRole", myRole);
 
         ITokenUserTypeData iTokenUserTypeData =  retrofit.create(ITokenUserTypeData.class);

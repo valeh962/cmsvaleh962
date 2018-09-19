@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.valeh.coursemanagementsystem"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -45,6 +45,7 @@ dependencies {
     //ExpandedLayouts
     implementation 'com.github.iammert:ExpandableLayout:1.4.1'
     implementation 'com.alespero:expandable-cardview:0.8'
+    implementation 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
     //Encryption
     implementation 'com.yakivmospan:scytale:1.0.1'
     //Fingerprint

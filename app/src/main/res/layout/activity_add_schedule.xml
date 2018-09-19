@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Main.Fragment.Groups.GroupDetails.GroupSchedule.AddSchedule">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_alignParentTop="true"
+                android:id="@+id/toolbar1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextColor="#fff">
+
+            </android.support.v7.widget.Toolbar>
+
+            <RelativeLayout
+                android:layout_below="@id/toolbar1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="262dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Put check to days to set time."
+                    android:textColor="#90ffffff"
+                    android:textSize="30dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/textView59"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/r1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch1"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Monday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl1"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch1"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch2"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Tuesday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl2"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch2"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch3"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Wednesday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl3"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch3"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch4"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Thursday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl4"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch4"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch5"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Friday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl5"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch5"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch6"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Saturday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl6"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch6"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/r7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/ch7"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:buttonTint="#fff"
+                            android:outlineSpotShadowColor="#fff"
+                            android:text="Sunday"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/cl7"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@id/ch7"
+                            android:background="@drawable/round_transparent_layout_bg"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/setTime_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#80ffffff"
+                    android:text="Set"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+</RelativeLayout>

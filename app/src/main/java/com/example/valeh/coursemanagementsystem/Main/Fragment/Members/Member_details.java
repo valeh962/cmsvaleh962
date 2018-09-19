@@ -1,7 +1,5 @@
-package com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupMemberDetails;
+package com.example.valeh.coursemanagementsystem.Main.Fragment.Members;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,12 +22,12 @@ import javax.inject.Inject;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GroupMemberDetails.OnFragmentInteractionListener} interface
+ * {@link Member_details.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GroupMemberDetails#newInstance} factory method to
+ * Use the {@link Member_details#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GroupMemberDetails extends Fragment {
+public class Member_details extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,7 +47,7 @@ public class GroupMemberDetails extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public GroupMemberDetails() {
+    public Member_details() {
         // Required empty public constructor
     }
 
@@ -62,8 +60,8 @@ public class GroupMemberDetails extends Fragment {
      * @return A new instance of fragment GroupMemberDetails.
      */
     // TODO: Rename and change types and number of parameters
-    public static GroupMemberDetails newInstance(String param1, String param2) {
-        GroupMemberDetails fragment = new GroupMemberDetails();
+    public static Member_details newInstance(String param1, String param2) {
+        Member_details fragment = new Member_details();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,7 +72,7 @@ public class GroupMemberDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApp.app().basicComponent().GroupMemberDetails_inject(this);
+        MyApp.app().basicComponent().Member_details_inject(this);
         chs = sharedManagement.getStringSaved("teacherstudent");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -117,13 +115,13 @@ public class GroupMemberDetails extends Fragment {
         im1 = view.findViewById(R.id.imageView16);
         im2 = view.findViewById(R.id.imageView17);
 
-
             ed1.setText(uname);
             ed2.setText(usurname);
             ed3.setText(uphone);
             ed4.setText(uemail);
             ed5.setText(uaddress);
             ed6.setText("University is "+uuniversity + ", Faculty is " + ufaculty + ", Grade " + ugrade);
+
 
 
         ed4.setOnClickListener(new View.OnClickListener() {

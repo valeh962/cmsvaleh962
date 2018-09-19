@@ -25,8 +25,10 @@ import android.support.v4.app.Fragment;
 
 import com.example.valeh.coursemanagementsystem.Main.Activity.FingerprintClasses.FingerprintAdd;
 import com.example.valeh.coursemanagementsystem.Main.Activity.LoginRegister;
+import com.example.valeh.coursemanagementsystem.Main.Activity.MainMenu;
 import com.example.valeh.coursemanagementsystem.Main.Activity.PinClasses.PinChange;
 import com.example.valeh.coursemanagementsystem.Main.Activity.PinClasses.PinLogin;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile_A;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.BaseFragment;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile;
 import com.example.valeh.coursemanagementsystem.R;
@@ -138,9 +140,12 @@ public class Settings extends BaseFragment {
         mydata_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment frr;
-                frr = new MyProfile();
-                replaceFragmentWithAnimation(frr,"MyProfile",R.id.mainmenu_myfrg);
+
+                startActivity(new Intent(getActivity(), MyProfile_A.class));
+
+//                Fragment frr;
+//                frr = new MyProfile();
+//                replaceFragmentWithAnimation(frr,"MyProfile",R.id.mainmenu_myfrg);
             }
         });
         mydata_logout.setOnClickListener(new View.OnClickListener() {

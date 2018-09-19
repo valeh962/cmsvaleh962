@@ -39,8 +39,7 @@
             android:name=".Main.Activity.MainMenu"
             android:label="@string/title_activity_main_menu"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Main.Activity.Login_Activity"
             android:screenOrientation="portrait"
@@ -55,7 +54,11 @@
         <activity android:name=".Main.Activity.FingerprintClasses.PinChange_FingAdd" />
         <activity android:name=".Main.Activity.FingerprintClasses.FingerprintAdd" />
         <activity android:name=".Main.Activity.FingerprintClasses.FingerprintAdd_Splash" />
-
+        <activity android:name=".Main.Fragment.Groups.GroupDetails.GroupSchedule.AddSchedule" />
+        <activity
+            android:name=".Main.Fragment.Settings_Fragments.Profile.MyProfile_A"
+            android:label="@string/title_activity_my_profile_"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

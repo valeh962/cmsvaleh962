@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="350dp"
-    android:background="@drawable/n_back">
+    android:background="@drawable/round_transparent_layout_bg">
 
 
     <TextView
@@ -14,7 +14,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Select student to add..."
-        android:textColor="#fff"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 
     <View
@@ -39,7 +39,7 @@
             android:gravity="center"
             android:text="Cancel"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp" />
     </RelativeLayout>
 
@@ -54,8 +54,7 @@
         android:layout_height="260dp"
         android:layout_below="@+id/ddd3"
 
-        android:background="@android:drawable/screen_background_light_transparent"
-        android:padding="5dp">
+        android:background="@android:drawable/screen_background_light_transparent">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

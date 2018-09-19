@@ -7,10 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.valeh.coursemanagementsystem.Main.Activity.PinClasses.PinChange;
 import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
 import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupDetails;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupMemberDetails.GroupMemberDetails;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.GroupDetails.GroupSchedule.GroupSchedule;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.Group_Add.AddNewGroup;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Groups.MyGroups;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.HomeScreens.Student.Home_student;
@@ -22,11 +24,16 @@ import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.Teac
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_3;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_4;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.edit_requests_list;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.teachers_accepted;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Member_details;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Member_details_tcr;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_students;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Members.Members_teachers;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.PersonTypeList.Menu_lists;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.PersonTypeList.Menu_lists_1;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile;
+import com.example.valeh.coursemanagementsystem.Main.Fragment.Settings_Fragments.Profile.MyProfile_A;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.home_mainmenu;
 import com.example.valeh.coursemanagementsystem.R;
 import com.jaeger.library.StatusBarUtil;
@@ -75,31 +82,16 @@ public class MainMenu extends AppCompatActivity
         if(!aBoolean){
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-//            @Override
-//            public void onBackStackChanged() {
-//                int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
-//                if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
-//                    getSupportActionBar().setHomeButtonEnabled(true);
-//                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                } else {
-//                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//                    getSupportActionBar().setHomeButtonEnabled(false);
-//                }
-//            }
-//
-//        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.home_1);
         View navhead = navigationView.getHeaderView(0);
@@ -107,25 +99,21 @@ public class MainMenu extends AppCompatActivity
         TextView tv2 = navhead.findViewById(R.id.textView29);
         tv1.setText(sharedManagement.getStringSaved("UserName")+" "+sharedManagement.getStringSaved("UserSurname"));
         tv2.setText(sharedManagement.getStringSaved("UserIdNumber"));
-        navhead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setActionBarTitle("My profile");
-                Fragment ft = new MyProfile();
-                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
-                if (currentFragment instanceof MyProfile) {drawer.closeDrawers();}
+        navhead.setOnClickListener(v -> {
 
-                else {
-                    replaceFragmentWithAnimation(ft, "home_mainmenu");
-                    drawer.closeDrawers();
-                }
-            }
+            startActivity(new Intent(MainMenu.this, MyProfile_A.class));
+            drawer.closeDrawers();
+
+//            setActionBarTitle("My profile");
+//            Fragment ft = new MyProfile();
+//            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
+//            if (currentFragment instanceof MyProfile) {drawer.closeDrawers();}
+//
+//            else {
+//                replaceFragmentWithAnimation(ft, "home_mainmenu");
+//                drawer.closeDrawers();
+//            }
         });
-//        navigationView.addHeaderView();
-//        TextView nav_name = navigationView.findViewById(R.id.textView26);
-//        TextView nav_type = navigationView.findViewById(R.id.textView29);
-//        nav_name.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("UserName", ""));
-//        nav_type.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("UserType", ""));
         Fragment frr;
         frr = new Home_student();
         setActionBarTitle("Home");
@@ -150,14 +138,12 @@ public class MainMenu extends AppCompatActivity
             hideItem(R.id.editRequests);
             hideItem(R.id.memberteacher);
         }
+       // if(sharedManagement.getStringSaved("SuggestSecurity").equals()){
 
-
-
-
-
-
+     //   }
 
     }
+
 
 
     @Override
@@ -170,7 +156,8 @@ public class MainMenu extends AppCompatActivity
 
         Fragment fr_mainScreen = new Home_student();
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainmenu_myfrg);
-        if (currentFragment instanceof home_mainmenu) {
+        Fragment currentFragment_infortions = getSupportFragmentManager().findFragmentById(R.id.adv_frag);
+        if (currentFragment instanceof Home_student) {
          new AlertDialog.Builder(this)
                    .setMessage("Are you sure you want to exit?")
                    .setCancelable(false)
@@ -187,20 +174,21 @@ public class MainMenu extends AppCompatActivity
                    .show();
         }
 
-        if(currentFragment instanceof infortions_adv_4){
+        if(currentFragment_infortions instanceof infortions_adv_4 && currentFragment instanceof teachers_accepted){
             replaceFragmentWithAnimation_infortions(new infortions_adv_3(),"infortions_adv_3");
         }
-        if(currentFragment instanceof infortions_adv_3){
+        if(currentFragment_infortions instanceof infortions_adv_3 && currentFragment instanceof teachers_accepted){
             replaceFragmentWithAnimation_infortions(new infortions_adv_2(),"infortions_adv_2");
         }
-        if(currentFragment instanceof infortions_adv_2){
+        if(currentFragment_infortions instanceof infortions_adv_2 && currentFragment instanceof teachers_accepted){
             replaceFragmentWithAnimation_infortions(new infortions_adv_1(),"infortions_adv_1");
         }
-        if(currentFragment instanceof infortions_adv_1){
+        if(currentFragment_infortions instanceof infortions_adv_1 && currentFragment instanceof teachers_accepted){
             replaceFragmentWithAnimation(new edit_requests_list(),"edit_requests_list");
         }
         if(currentFragment instanceof Teacher_details){
             replaceFragmentWithAnimation(new teacher_main_list(),"teacher_main_list");
+            setActionBarTitle("Edit requests");
         }
         if(currentFragment instanceof GroupMemberDetails){
             replaceFragmentWithAnimation(new GroupDetails(),"GroupDetails");
@@ -214,11 +202,77 @@ public class MainMenu extends AppCompatActivity
             replaceFragmentWithAnimation(new Settings(),"Settings");
             setActionBarTitle("Settings");
         }
-
-        else{
+        if(currentFragment instanceof Settings){
             replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
             setActionBarTitle("Home");
         }
+        if(currentFragment instanceof MyGroups){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof AddNewGroup){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof edit_requests_list){
+            replaceFragmentWithAnimation(new Menu_lists(),"Menu_lists");
+            setActionBarTitle("Edit requests");
+        }
+        if(currentFragment instanceof teacher_main_list){
+            replaceFragmentWithAnimation(new Menu_lists_1(),"Menu_lists_1");
+            setActionBarTitle("Request list");
+        }
+        if(currentFragment instanceof FilteredPersons){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof Menu_lists){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof Menu_lists_1){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof Members_teachers){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof Members_students){
+            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+            navigationView.setCheckedItem(R.id.home_1);
+            setActionBarTitle("Home");
+        }
+        if(currentFragment instanceof GroupSchedule){
+            replaceFragmentWithAnimation(new GroupDetails(),"GroupDetails");
+            setActionBarTitle("Group details");
+        }
+        if(currentFragment instanceof Teacher_details){
+            replaceFragmentWithAnimation(new teacher_main_list(),"Teacher_details");
+            setActionBarTitle("Request list");
+        }
+        if(currentFragment instanceof Member_details){
+            replaceFragmentWithAnimation(new Members_students(),"Members_students");
+            setActionBarTitle("Students");
+        }
+        if(currentFragment instanceof Member_details_tcr){
+            replaceFragmentWithAnimation(new Members_teachers(),"Members_teachers");
+            setActionBarTitle("Teachers");
+        }
+
+//        else
+//        {
+//            replaceFragmentWithAnimation(fr_mainScreen,"Home");
+//            setActionBarTitle("Home");
+//        }
+
 
     }
 

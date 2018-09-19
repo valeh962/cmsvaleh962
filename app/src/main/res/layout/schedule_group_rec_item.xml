@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="2dp"
+    android:background="@drawable/round_transparent_layout_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/grp_clock_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="16dp" />
+
+        <View
+           style="@style/Divider"
+            android:id="@+id/dv1"
+            android:layout_below="@id/grp_clock_txt"/>
+
+        <Button
+            android:id="@+id/cls_grp_clock"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@id/dv1"
+            android:background="#fff"
+            android:text="Close"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.valeh.coursemanagementsystem.Main.Activity.MainMenu;
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.RequestListofTandS.teacher_main_list;
 import com.example.valeh.coursemanagementsystem.Main.Fragment.MainMenuLists.TeacherandStudents.Pages.infortions_adv_1;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.BaseFragment;
@@ -32,6 +34,8 @@ import com.example.valeh.coursemanagementsystem.Main.JsonWorks.ChangeStatus.Chan
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.ChangeStatus.IChangeStatusData;
 import com.example.valeh.coursemanagementsystem.Main.JsonWorks.Login.LoginResponseData;
 import com.example.valeh.coursemanagementsystem.R;
+
+import javax.inject.Inject;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -60,6 +64,8 @@ public class teachers_accepted extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
+    @Inject
+    SharedManagement sharedManagement;
 
     TextView tx1,tx2,tx3,tx4,tx5;
     EditText ed1,ed2,ed3;
@@ -100,6 +106,7 @@ public class teachers_accepted extends BaseFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        MyApp.app().basicComponent().teachers_accepted(this);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             pname = bundle.getString("Name");
@@ -112,6 +119,17 @@ public class teachers_accepted extends BaseFragment {
             ppersontypeid= bundle.getString("PersonTypeId");
             psubjectid= bundle.getString("SubjectId");
             pid= bundle.getString("Id");
+
+            sharedManagement.save("acceptName",pname,"string");
+            sharedManagement.save("acceptSurname",psurname,"string");
+            sharedManagement.save("acceptEmail",pemail,"string");
+            sharedManagement.save("acceptPhone",pphone,"string");
+            sharedManagement.save("acceptAddress",paddress,"string");
+            sharedManagement.save("acceptAdditional",padditional,"string");
+            sharedManagement.save("acceptPersonId",ppersonid,"string");
+            sharedManagement.save("acceptPersonTypeId",ppersontypeid,"string");
+            sharedManagement.save("acceptSubjectId",psubjectid,"string");
+            sharedManagement.save("acceptId",pid,"string");
         }
 
 //        ((MainMenu) getActivity())
@@ -142,18 +160,6 @@ public class teachers_accepted extends BaseFragment {
 
 
         Fragment ff = new infortions_adv_1();
-        Bundle bundle = new Bundle();
-        bundle.putString("Name", pname);
-        bundle.putString("Surname", psurname);
-        bundle.putString("Email", pemail);
-        bundle.putString("Phone", pphone);
-        bundle.putString("PersonTypeId", ppersontypeid);
-        bundle.putString("PersonId", ppersonid);
-        bundle.putString("SubjectId", psubjectid);
-        bundle.putString("Additional", padditional);
-        bundle.putString("Address",paddress);
-        bundle.putString("Id", pid);
-        ff.setArguments(bundle);
         replaceFragmentWithAnimation(ff,"adv_1",R.id.adv_frag);
 
 //        if(ppersontypeid.equals("1")){

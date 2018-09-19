@@ -11,9 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.valeh.coursemanagementsystem.Main.DI.MyApp_classes.MyApp;
+import com.example.valeh.coursemanagementsystem.Main.DI.SharedManagement;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.BaseFragment;
 import com.example.valeh.coursemanagementsystem.Main.Helpers.SubjectsRoles;
 import com.example.valeh.coursemanagementsystem.R;
+
+import javax.inject.Inject;
 
 
 public class infortions_adv_3 extends BaseFragment {
@@ -30,7 +34,8 @@ public class infortions_adv_3 extends BaseFragment {
     TextView button,back;
     String pname,psurname,pemail,pphone,paddress,padditional,ppersontypeid,ppersonid,pid,psubjectid;
 
-
+    @Inject
+    SharedManagement sharedManagement;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,20 +60,18 @@ public class infortions_adv_3 extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            pname = bundle.getString("Name");
-            psurname= bundle.getString("Surname");
-            pemail= bundle.getString("Email");
-            pphone= bundle.getString("Phone");
-            paddress= bundle.getString("Address");
-            padditional= bundle.getString("Additional");
-            ppersonid= bundle.getString("PersonId");
-            ppersontypeid= bundle.getString("PersonTypeId");
-            psubjectid= bundle.getString("SubjectId");
-            pid= bundle.getString("Id");
-        }
+        MyApp.app().basicComponent().infort3_inject(this);
 
+        pname =     sharedManagement.getStringSaved("acceptName");
+        psurname=   sharedManagement.getStringSaved("acceptSurname");
+        pemail=     sharedManagement.getStringSaved("acceptEmail");
+        pphone=     sharedManagement.getStringSaved("acceptPhone");
+        paddress=   sharedManagement.getStringSaved("acceptAddress");
+        padditional=sharedManagement.getStringSaved("acceptAdditional");
+        ppersonid=  sharedManagement.getStringSaved("acceptPersonId");
+        ppersontypeid= sharedManagement.getStringSaved("acceptPersonTypeId");
+        psubjectid= sharedManagement.getStringSaved("acceptSubjectId");
+        pid=        sharedManagement.getStringSaved("acceptId");
 
 
     }
